@@ -8,6 +8,26 @@ suite("KeystrokeRepository Test Suite", () => {
     repository = KeystrokeRepository.getInstance();
   });
 
+  teardown(() => {
+    repository.second.resetCount();
+    repository.minute.resetCount();
+    repository.hour.resetCount();
+    repository.day.resetCount();
+    repository.week.resetCount();
+    repository.month.resetCount();
+    repository.year.resetCount();
+    repository.total.resetCount();
+
+    repository.second.resetPressedKeys();
+    repository.minute.resetPressedKeys();
+    repository.hour.resetPressedKeys();
+    repository.day.resetPressedKeys();
+    repository.week.resetPressedKeys();
+    repository.month.resetPressedKeys();
+    repository.year.resetPressedKeys();
+    repository.total.resetPressedKeys();
+  });
+
   test("getInstance() returns the same instance", () => {
     assert.strictEqual(repository, KeystrokeRepository.getInstance());
   });
@@ -47,5 +67,28 @@ suite("KeystrokeRepository Test Suite", () => {
     assert.strictEqual(repository.month.pressedKeys.get("a"), 1);
     assert.strictEqual(repository.year.pressedKeys.get("a"), 1);
     assert.strictEqual(repository.total.pressedKeys.get("a"), 1);
+  });
+
+  test("getMostOftenPressedKeysInTotalWithCountInDescendingOrder() returns the pressedKeys sorted descending", () => {
+    repository.addPressedKeyToAll("a");
+    repository.addPressedKeyToAll("b");
+    repository.addPressedKeyToAll("a");
+    repository.addPressedKeyToAll("b");
+    repository.addPressedKeyToAll("a");
+    repository.addPressedKeyToAll("c");
+
+    // idk why, but for comparison the Map needs to be converted to an array
+    const mostOftenPressedKeys = Array.from(
+      repository.getMostOftenPressedKeysInTotalWithCountInDescendingOrder()
+    );
+    const expected = Array.from(
+      new Map<string, number>([
+        ["a", 3],
+        ["b", 2],
+        ["c", 1],
+      ])
+    );
+
+    assert.deepStrictEqual(mostOftenPressedKeys, expected);
   });
 });

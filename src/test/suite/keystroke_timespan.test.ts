@@ -30,14 +30,14 @@ suite("KeystrokeTimeSpan Test Suite", () => {
       assert.strictEqual(timeSpan.pressedKeys.size, 0);
     });
 
-    test("AddPressedKey 'a' once, so the count for the key 'a' is 1 and only 1 element is in the map", () => {
+    test("AddPressedKey() for 'a' once, so the count for the key 'a' is 1 and only 1 element is in the map", () => {
       timeSpan.addPressedKey("a");
 
       assert.strictEqual(timeSpan.pressedKeys.size, 1);
       assert.strictEqual(timeSpan.pressedKeys.get("a"), 1);
     });
 
-    test("AddPressedKey 'a' twice, so the count for the key 'a' is 2 and only 1 element is in the map", () => {
+    test("AddPressedKey() for 'a' twice, so the count for the key 'a' is 2 and only 1 element is in the map", () => {
       timeSpan.addPressedKey("a");
       timeSpan.addPressedKey("a");
 
@@ -45,7 +45,7 @@ suite("KeystrokeTimeSpan Test Suite", () => {
       assert.strictEqual(timeSpan.pressedKeys.get("a"), 2);
     });
 
-    test("AddPressedKey 'a' once and 'b' once, so the count for the key 'a' and 'b' is 1 and 2 elements are in the map", () => {
+    test("AddPressedKey() for 'a' once and 'b' once, so the count for the key 'a' and 'b' is 1 and 2 elements are in the map", () => {
       timeSpan.addPressedKey("a");
       timeSpan.addPressedKey("b");
 
@@ -54,7 +54,7 @@ suite("KeystrokeTimeSpan Test Suite", () => {
       assert.strictEqual(timeSpan.pressedKeys.get("b"), 1);
     });
 
-    test("ResetPressedKeys clears all elements in the map", () => {
+    test("ResetPressedKeys() clears all elements in the map", () => {
       timeSpan.addPressedKey("a");
       timeSpan.addPressedKey("b");
       timeSpan.resetPressedKeys();

@@ -15,7 +15,6 @@ import { updateStatusBarItem, isValidChangedContent } from "./vscode_utils";
 import { getAverageWordsPerMinute } from "./libs/words_per_minute";
 import {
   keystrokeRepository,
-  getThreeMostOftenPressedKeys,
   getMostOftenPressedKeysMessage,
   getKeystrokeCountAnalyticsMessage,
   collectPressedKey,
@@ -94,7 +93,8 @@ function keystrokeCountAnalyticsCommand(): void {
 }
 
 function mostOftenPressedKeysCommand(): void {
-  const mostOftenPressedKeys = getThreeMostOftenPressedKeys();
+  const mostOftenPressedKeys =
+    keystrokeRepository.getMostOftenPressedKeysInTotalWithCountInDescendingOrder();
   const message = getMostOftenPressedKeysMessage(mostOftenPressedKeys);
 
   vscode.window.showInformationMessage(message);
