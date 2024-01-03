@@ -8,14 +8,13 @@ const pressedKeys = new Map<string, number>();
 
 // message for the keystrokeCountAnalyticsCommand
 export function getKeystrokeCountAnalyticsMessage(): string {
-  const keystrokes = keystrokeRepository;
-  const message = `You collected so far ${keystrokes.total} keystrokes in total.
-					${keystrokes.year} of them this year, 
-					${keystrokes.month} this month, 
-					${keystrokes.week} this week, 
-					${keystrokes.day} today, 
-					${keystrokes.hour} this hour and
-					${keystrokes.minute} this minute!`;
+  const message = `You collected so far ${keystrokeRepository.total.count} keystrokes in total.
+					${keystrokeRepository.year.count} of them this year, 
+					${keystrokeRepository.month.count} this month, 
+					${keystrokeRepository.week.count} this week, 
+					${keystrokeRepository.day.count} today, 
+					${keystrokeRepository.hour.count} this hour and
+					${keystrokeRepository.minute.count} this minute!`;
 
   return message;
 }

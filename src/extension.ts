@@ -58,14 +58,14 @@ export function activate({ subscriptions }: vscode.ExtensionContext): void {
     // const wordsPerMinute = getAverageWordsPerMinute(keystrokeManager);
     // updateStatusBarItem(keystrokeRepository.total.count, wordsPerMinute);
 
-    keystrokeRepository.second.reset();
+    keystrokeRepository.second.resetCount();
   }, SECOND_AS_MILLISECONDS);
-  setInterval(keystrokeRepository.minute.reset, MINUTE_AS_MILLISECONDS);
-  setInterval(keystrokeRepository.hour.reset, HOUR_AS_MILLISECONDS);
-  setInterval(keystrokeRepository.day.reset, DAY_AS_MILLISECONDS);
-  setInterval(keystrokeRepository.week.reset, WEEK_AS_MILLISECONDS);
-  setLongInterval(keystrokeRepository.month.reset, MONTH_AS_MILLISECONDS);
-  setLongInterval(keystrokeRepository.year.reset, YEAR_AS_MILLISECONDS);
+  setInterval(keystrokeRepository.minute.resetCount, MINUTE_AS_MILLISECONDS);
+  setInterval(keystrokeRepository.hour.resetCount, HOUR_AS_MILLISECONDS);
+  setInterval(keystrokeRepository.day.resetCount, DAY_AS_MILLISECONDS);
+  setInterval(keystrokeRepository.week.resetCount, WEEK_AS_MILLISECONDS);
+  setLongInterval(keystrokeRepository.month.resetCount, MONTH_AS_MILLISECONDS);
+  setLongInterval(keystrokeRepository.year.resetCount, YEAR_AS_MILLISECONDS);
 }
 
 function keystrokeCountAnalyticsCommand(): void {

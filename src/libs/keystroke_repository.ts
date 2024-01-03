@@ -33,13 +33,13 @@ export class KeystrokeRepository {
   }
 
   public incrementAll(): void {
-    this.second.increment();
-    this.minute.increment();
-    this.hour.increment();
-    this.day.increment();
-    this.week.increment();
-    this.month.increment();
-    this.year.increment();
-    this.total.increment();
+    this.second.incrementCount();
+    this.minute.incrementCount();
+    this.hour.incrementCount();
+    this.day.incrementCount();
+    this.week.incrementCount();
+    this.month.incrementCount();
+    this.year.incrementCount();
+    this.total.incrementCount();
   }
 }
