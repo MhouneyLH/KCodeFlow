@@ -3,6 +3,7 @@ import { KeystrokeRepository } from "./keystroke_repository";
 // Calculates the average words per minute
 export class WordsPerMinuteCalculator {
   private _repository: KeystrokeRepository;
+  // todo: this is a little hack to get the average words per minute working for now
   private _totalTimeCalled: number = 0;
 
   constructor(repository: KeystrokeRepository) {
