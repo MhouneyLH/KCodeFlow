@@ -56,35 +56,3 @@ export function getThreeMostOftenPressedKeys(): Map<string, number> {
 
   return mostOftenPressedKeys;
 }
-
-// the count of one specific map-item is resetted based on the key
-export function resetOneTimespanKeystrokesAmount(key: string): void {
-  switch (key) {
-    case "total":
-      keystrokeRepository.total.reset();
-      break;
-    case "year":
-      keystrokeRepository.year.reset();
-      break;
-    case "month":
-      keystrokeRepository.month.reset();
-      break;
-    case "week":
-      keystrokeRepository.week.reset();
-      break;
-    case "day":
-      keystrokeRepository.day.reset();
-      break;
-    case "hour":
-      keystrokeRepository.hour.reset();
-      break;
-    case "minute":
-      keystrokeRepository.minute.reset();
-      break;
-    case "second":
-      keystrokeRepository.second.reset();
-      break;
-    default:
-      break;
-  }
-}

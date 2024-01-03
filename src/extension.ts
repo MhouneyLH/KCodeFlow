@@ -15,7 +15,6 @@ import { updateStatusBarItem, isValidChangedContent } from "./vscode_utils";
 import { getAverageWordsPerMinute } from "./libs/words_per_minute";
 import {
   keystrokeRepository,
-  resetOneTimespanKeystrokesAmount,
   getThreeMostOftenPressedKeys,
   getMostOftenPressedKeysMessage,
   getKeystrokeCountAnalyticsMessage,
@@ -59,14 +58,14 @@ export function activate({ subscriptions }: vscode.ExtensionContext): void {
     // const wordsPerMinute = getAverageWordsPerMinute(keystrokeManager);
     // updateStatusBarItem(keystrokeRepository.total.count, wordsPerMinute);
 
-    resetOneTimespanKeystrokesAmount("second");
+    keystrokeRepository.second.reset();
   }, SECOND_AS_MILLISECONDS);
-  setInterval(() => resetOneTimespanKeystrokesAmount("minute"), MINUTE_AS_MILLISECONDS);
-  setInterval(() => resetOneTimespanKeystrokesAmount("hour"), HOUR_AS_MILLISECONDS);
-  setInterval(() => resetOneTimespanKeystrokesAmount("day"), DAY_AS_MILLISECONDS);
-  setInterval(() => resetOneTimespanKeystrokesAmount("week"), WEEK_AS_MILLISECONDS);
-  setLongInterval(() => resetOneTimespanKeystrokesAmount("month"), MONTH_AS_MILLISECONDS);
-  setLongInterval(() => resetOneTimespanKeystrokesAmount("year"), YEAR_AS_MILLISECONDS);
+  setInterval(keystrokeRepository.minute.reset, MINUTE_AS_MILLISECONDS);
+  setInterval(keystrokeRepository.hour.reset, HOUR_AS_MILLISECONDS);
+  setInterval(keystrokeRepository.day.reset, DAY_AS_MILLISECONDS);
+  setInterval(keystrokeRepository.week.reset, WEEK_AS_MILLISECONDS);
+  setLongInterval(keystrokeRepository.month.reset, MONTH_AS_MILLISECONDS);
+  setLongInterval(keystrokeRepository.year.reset, YEAR_AS_MILLISECONDS);
 }
 
 function keystrokeCountAnalyticsCommand(): void {
