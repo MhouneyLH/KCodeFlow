@@ -1,39 +1,20 @@
 import * as vscode from "vscode";
 
 import { KEYSTROKE_DEFAULT_VALUE, FIRST_ICON, SECOND_ICON, THIRD_ICON } from "../constants";
+import { KeystrokeRepository } from "./keystroke_repository";
 
-export interface IKeystrokeManager {
-  second: number;
-  minute: number;
-  hour: number;
-  day: number;
-  week: number;
-  month: number;
-  year: number;
-  total: number;
-}
-
-export const keystrokeManager: IKeystrokeManager = {
-  second: KEYSTROKE_DEFAULT_VALUE,
-  minute: KEYSTROKE_DEFAULT_VALUE,
-  hour: KEYSTROKE_DEFAULT_VALUE,
-  day: KEYSTROKE_DEFAULT_VALUE,
-  week: KEYSTROKE_DEFAULT_VALUE,
-  month: KEYSTROKE_DEFAULT_VALUE,
-  year: KEYSTROKE_DEFAULT_VALUE,
-  total: KEYSTROKE_DEFAULT_VALUE,
-};
+export const keystrokeRepository = KeystrokeRepository.getInstance();
 const pressedKeys = new Map<string, number>();
 
 // message for the keystrokeCountAnalyticsCommand
 export function getKeystrokeCountAnalyticsMessage(): string {
-  const keystrokes = keystrokeManager;
+  const keystrokes = keystrokeRepository;
   const message = `You collected so far ${keystrokes.total} keystrokes in total.
 					${keystrokes.year} of them this year, 
 					${keystrokes.month} this month, 
 					${keystrokes.week} this week, 
 					${keystrokes.day} today, 
-					${keystrokes.hour} this hour and 
+					${keystrokes.hour} this hour and
 					${keystrokes.minute} this minute!`;
 
   return message;
@@ -76,44 +57,32 @@ export function getThreeMostOftenPressedKeys(): Map<string, number> {
   return mostOftenPressedKeys;
 }
 
-// the count of every map-item is incremented
-export function incrementKeystrokesOfEveryTimespan(): void {
-  ++keystrokeManager.total;
-  ++keystrokeManager.year;
-  ++keystrokeManager.month;
-  ++keystrokeManager.week;
-  ++keystrokeManager.day;
-  ++keystrokeManager.hour;
-  ++keystrokeManager.minute;
-  ++keystrokeManager.second;
-}
-
 // the count of one specific map-item is resetted based on the key
 export function resetOneTimespanKeystrokesAmount(key: string): void {
   switch (key) {
     case "total":
-      keystrokeManager.total = KEYSTROKE_DEFAULT_VALUE;
+      keystrokeRepository.total.reset();
       break;
     case "year":
-      keystrokeManager.year = KEYSTROKE_DEFAULT_VALUE;
+      keystrokeRepository.year.reset();
       break;
     case "month":
-      keystrokeManager.month = KEYSTROKE_DEFAULT_VALUE;
+      keystrokeRepository.month.reset();
       break;
     case "week":
-      keystrokeManager.week = KEYSTROKE_DEFAULT_VALUE;
+      keystrokeRepository.week.reset();
       break;
     case "day":
-      keystrokeManager.day = KEYSTROKE_DEFAULT_VALUE;
+      keystrokeRepository.day.reset();
       break;
     case "hour":
-      keystrokeManager.hour = KEYSTROKE_DEFAULT_VALUE;
+      keystrokeRepository.hour.reset();
       break;
     case "minute":
-      keystrokeManager.minute = KEYSTROKE_DEFAULT_VALUE;
+      keystrokeRepository.minute.reset();
       break;
     case "second":
-      keystrokeManager.second = KEYSTROKE_DEFAULT_VALUE;
+      keystrokeRepository.second.reset();
       break;
     default:
       break;

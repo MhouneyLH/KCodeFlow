@@ -14,12 +14,11 @@ import { getPraisingWord, setLongInterval } from "./utils";
 import { updateStatusBarItem, isValidChangedContent } from "./vscode_utils";
 import { getAverageWordsPerMinute } from "./libs/words_per_minute";
 import {
-  keystrokeManager,
+  keystrokeRepository,
   resetOneTimespanKeystrokesAmount,
   getThreeMostOftenPressedKeys,
   getMostOftenPressedKeysMessage,
   getKeystrokeCountAnalyticsMessage,
-  incrementKeystrokesOfEveryTimespan,
   collectPressedKey,
 } from "./libs/keystrokes_analytics";
 
@@ -47,7 +46,7 @@ export function activate({ subscriptions }: vscode.ExtensionContext): void {
     STATUS_BAR_ITEM_PRIORITY
   );
   statusBarItem.command = keystrokeCountAnalyticsCommandId;
-  statusBarItem.text = `${KEYBOARD_ICON} Keystrokes: ${keystrokeManager.total} | 0 WPM`;
+  statusBarItem.text = `${KEYBOARD_ICON} Keystrokes: ${keystrokeRepository.total.count} | 0 WPM`;
   statusBarItem.tooltip = "Select Timespan";
   statusBarItem.show();
   subscriptions.push(statusBarItem);
@@ -57,8 +56,8 @@ export function activate({ subscriptions }: vscode.ExtensionContext): void {
 
   // intervals
   setInterval(() => {
-    const wordsPerMinute = getAverageWordsPerMinute(keystrokeManager);
-    updateStatusBarItem(keystrokeManager.total, wordsPerMinute);
+    // const wordsPerMinute = getAverageWordsPerMinute(keystrokeManager);
+    // updateStatusBarItem(keystrokeRepository.total.count, wordsPerMinute);
 
     resetOneTimespanKeystrokesAmount("second");
   }, SECOND_AS_MILLISECONDS);
@@ -85,8 +84,8 @@ function mostOftenPressedKeysCommand(): void {
 
 function updateKeystrokes(event: vscode.TextDocumentChangeEvent): void {
   if (isValidChangedContent(event)) {
-    incrementKeystrokesOfEveryTimespan();
-    updateStatusBarItem(keystrokeManager.total);
+    keystrokeRepository.incrementAll();
+    updateStatusBarItem(keystrokeRepository.total.count);
     collectPressedKey(event);
   }
 }

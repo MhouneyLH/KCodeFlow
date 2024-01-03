@@ -1,8 +1,8 @@
 // randomly generates a praising word based on an array of praising words
 export function getPraisingWord(): string {
-	const WORDS = ['Awesome', 'Wonderful', 'Great', 'Fantastic', 'Cool'];
+  const WORDS = ["Awesome", "Wonderful", "Great", "Fantastic", "Cool"];
 
-	return WORDS[Math.floor(Math.random() * WORDS.length)];
+  return WORDS[Math.floor(Math.random() * WORDS.length)];
 }
 
 // makes it possible to use the setInterval()-method
@@ -10,17 +10,17 @@ export function getPraisingWord(): string {
 // when using the normal setInterval()-method, than just 0 is used as value,
 // if value is greater 2^31 - 1
 export function setLongInterval(callback: any, timeout: number): any {
-    let count = 0;
-    const MAX_32_BIT_SIGNED = 2147483647;
-    const maxIterations = timeout / MAX_32_BIT_SIGNED;
+  let count = 0;
+  const MAX_32_BIT_SIGNED = 2147483647;
+  const maxIterations = timeout / MAX_32_BIT_SIGNED;
 
-    const onInterval = () => {
-        count++;
-        if (count > maxIterations) {
-            count = 0;
-            callback();
-        }
-    };
+  const onInterval = () => {
+    count++;
+    if (count > maxIterations) {
+      count = 0;
+      callback();
+    }
+  };
 
-    return setInterval(onInterval, Math.min(timeout, MAX_32_BIT_SIGNED));
-};
+  return setInterval(onInterval, Math.min(timeout, MAX_32_BIT_SIGNED));
+}

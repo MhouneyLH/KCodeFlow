@@ -3,10 +3,10 @@ export const KEYSTROKE_DEFAULT_VALUE = 0;
 export const KEYSTROKE_ERROR_VALUE = -1;
 
 // icons
-export const KEYBOARD_ICON = '$(keyboard)';
-export const FIRST_ICON = '🥇';
-export const SECOND_ICON = '🥈';
-export const THIRD_ICON = '🥉';
+export const KEYBOARD_ICON = "$(keyboard)";
+export const FIRST_ICON = "🥇";
+export const SECOND_ICON = "🥈";
+export const THIRD_ICON = "🥉";
 
 // time
 export const SECOND_AS_MILLISECONDS = 1000;
