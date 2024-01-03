@@ -2,6 +2,8 @@ import { KeystrokeTimeSpan } from "./keystroke_timespan";
 
 // Manages every time span.
 export class KeystrokeRepository {
+  private static _instance: KeystrokeRepository;
+
   second: KeystrokeTimeSpan;
   minute: KeystrokeTimeSpan;
   hour: KeystrokeTimeSpan;
@@ -11,7 +13,15 @@ export class KeystrokeRepository {
   year: KeystrokeTimeSpan;
   total: KeystrokeTimeSpan;
 
-  constructor() {
+  public static getInstance(): KeystrokeRepository {
+    if (!KeystrokeRepository._instance) {
+      KeystrokeRepository._instance = new KeystrokeRepository();
+    }
+
+    return KeystrokeRepository._instance;
+  }
+
+  private constructor() {
     this.second = new KeystrokeTimeSpan(0);
     this.minute = new KeystrokeTimeSpan(0);
     this.hour = new KeystrokeTimeSpan(0);
@@ -22,7 +32,7 @@ export class KeystrokeRepository {
     this.total = new KeystrokeTimeSpan(0);
   }
 
-  incrementAll(): void {
+  public incrementAll(): void {
     this.second.increment();
     this.minute.increment();
     this.hour.increment();

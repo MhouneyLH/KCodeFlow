@@ -5,7 +5,11 @@ suite("KeystrokeRepository Test Suite", () => {
   let repository: KeystrokeRepository;
 
   setup(() => {
-    repository = new KeystrokeRepository();
+    repository = KeystrokeRepository.getInstance();
+  });
+
+  test("getInstance() returns the same instance", () => {
+    assert.strictEqual(repository, KeystrokeRepository.getInstance());
   });
 
   test("Initial count is 0", () => {
