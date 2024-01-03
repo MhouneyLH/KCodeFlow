@@ -1,5 +1,6 @@
 import * as assert from "assert";
 import { KeystrokeRepository } from "../../libs/keystroke_repository";
+import { resetKeystrokeRepository } from "../test_utils";
 
 suite("KeystrokeRepository Test Suite", () => {
   let repository: KeystrokeRepository;
@@ -9,23 +10,7 @@ suite("KeystrokeRepository Test Suite", () => {
   });
 
   teardown(() => {
-    repository.second.resetCount();
-    repository.minute.resetCount();
-    repository.hour.resetCount();
-    repository.day.resetCount();
-    repository.week.resetCount();
-    repository.month.resetCount();
-    repository.year.resetCount();
-    repository.total.resetCount();
-
-    repository.second.resetPressedKeys();
-    repository.minute.resetPressedKeys();
-    repository.hour.resetPressedKeys();
-    repository.day.resetPressedKeys();
-    repository.week.resetPressedKeys();
-    repository.month.resetPressedKeys();
-    repository.year.resetPressedKeys();
-    repository.total.resetPressedKeys();
+    resetKeystrokeRepository(repository);
   });
 
   test("getInstance() returns the same instance", () => {

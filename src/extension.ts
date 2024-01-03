@@ -12,13 +12,13 @@ import {
 } from "./constants";
 import { getPraisingWord, setLongInterval } from "./utils";
 import { updateStatusBarItem, isValidChangedContent } from "./vscode_utils";
-import { getAverageWordsPerMinute } from "./libs/words_per_minute";
 import {
   keystrokeRepository,
   getMostOftenPressedKeysMessage,
   getKeystrokeCountAnalyticsMessage,
   collectPressedKey,
 } from "./libs/keystrokes_analytics";
+import { WordsPerMinuteCalculator } from "./libs/words_per_minute_calculator";
 
 export var statusBarItem: vscode.StatusBarItem;
 
@@ -52,10 +52,14 @@ export function activate({ subscriptions }: vscode.ExtensionContext): void {
   // change-detections
   subscriptions.push(vscode.workspace.onDidChangeTextDocument(updateKeystrokes));
 
+  const calcTest = new WordsPerMinuteCalculator(keystrokeRepository);
   // intervals
   setInterval(() => {
-    // const wordsPerMinute = getAverageWordsPerMinute(keystrokeManager);
+    // const wordsPerMinute: number = getAverageWordsPerMinute();
     // updateStatusBarItem(keystrokeRepository.total.count, wordsPerMinute);
+
+    const wpm: number = calcTest.getAverageWordsPerMinute();
+    updateStatusBarItem(keystrokeRepository.total.count, wpm);
 
     keystrokeRepository.second.resetCount();
     keystrokeRepository.second.resetPressedKeys();
