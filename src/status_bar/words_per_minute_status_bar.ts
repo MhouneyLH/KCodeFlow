@@ -1,6 +1,5 @@
-import { KeystrokeRepository } from "./libs/keystroke_repository";
 import * as vscode from "vscode";
-import { WordsPerMinuteCalculator } from "./libs/words_per_minute_calculator";
+import { WordsPerMinuteCalculator } from "../libs/words_per_minute_calculator";
 
 const DIGIT_PRECISION: number = 1;
 
@@ -12,13 +11,14 @@ export class WordsPerMinuteStatusBar {
   constructor(wpmCalculator: WordsPerMinuteCalculator, statusBarItem: vscode.StatusBarItem) {
     this._wpmCalculator = wpmCalculator;
     this._statusBarItem = statusBarItem;
+
+    this._statusBarItem.text = `0.0 wpm`;
+    this._statusBarItem.show();
   }
 
   public update(): void {
     const wpm: number = this._wpmCalculator.getAverageWordsPerMinute();
     this._statusBarItem.text = `${wpm.toFixed(DIGIT_PRECISION)} wpm`;
-
-    this._statusBarItem.show();
   }
 
   dispose() {
