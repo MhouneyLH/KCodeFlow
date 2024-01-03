@@ -24,7 +24,10 @@ export class KeystrokeTimeSpan {
     return this._pressedKeys;
   }
 
-  public set pressedKeys(pressedKeys: Map<string, number>) {
-    this._pressedKeys = pressedKeys;
+  public addPressedKey(pressedKey: string): void {
+    const pressedKeyDefaultCount: number = 0;
+    const previousCount: number = this._pressedKeys.get(pressedKey) ?? pressedKeyDefaultCount;
+
+    this._pressedKeys.set(pressedKey, previousCount + 1);
   }
 }

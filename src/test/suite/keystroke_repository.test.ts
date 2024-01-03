@@ -35,4 +35,17 @@ suite("KeystrokeRepository Test Suite", () => {
     assert.strictEqual(repository.year.count, 1);
     assert.strictEqual(repository.total.count, 1);
   });
+
+  test("AddPressedKeyToAll() adds pressedKey to every timeSpan", () => {
+    repository.addPressedKeyToAll("a");
+
+    assert.strictEqual(repository.second.pressedKeys.get("a"), 1);
+    assert.strictEqual(repository.minute.pressedKeys.get("a"), 1);
+    assert.strictEqual(repository.hour.pressedKeys.get("a"), 1);
+    assert.strictEqual(repository.day.pressedKeys.get("a"), 1);
+    assert.strictEqual(repository.week.pressedKeys.get("a"), 1);
+    assert.strictEqual(repository.month.pressedKeys.get("a"), 1);
+    assert.strictEqual(repository.year.pressedKeys.get("a"), 1);
+    assert.strictEqual(repository.total.pressedKeys.get("a"), 1);
+  });
 });

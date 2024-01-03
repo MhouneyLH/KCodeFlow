@@ -4,14 +4,14 @@ import { KeystrokeTimeSpan } from "./keystroke_timespan";
 export class KeystrokeRepository {
   private static _instance: KeystrokeRepository;
 
-  second: KeystrokeTimeSpan;
-  minute: KeystrokeTimeSpan;
-  hour: KeystrokeTimeSpan;
-  day: KeystrokeTimeSpan;
-  week: KeystrokeTimeSpan;
-  month: KeystrokeTimeSpan;
-  year: KeystrokeTimeSpan;
-  total: KeystrokeTimeSpan;
+  public second: KeystrokeTimeSpan;
+  public minute: KeystrokeTimeSpan;
+  public hour: KeystrokeTimeSpan;
+  public day: KeystrokeTimeSpan;
+  public week: KeystrokeTimeSpan;
+  public month: KeystrokeTimeSpan;
+  public year: KeystrokeTimeSpan;
+  public total: KeystrokeTimeSpan;
 
   public static getInstance(): KeystrokeRepository {
     if (!KeystrokeRepository._instance) {
@@ -41,5 +41,16 @@ export class KeystrokeRepository {
     this.month.incrementCount();
     this.year.incrementCount();
     this.total.incrementCount();
+  }
+
+  public addPressedKeyToAll(pressedKey: string): void {
+    this.second.addPressedKey(pressedKey);
+    this.minute.addPressedKey(pressedKey);
+    this.hour.addPressedKey(pressedKey);
+    this.day.addPressedKey(pressedKey);
+    this.week.addPressedKey(pressedKey);
+    this.month.addPressedKey(pressedKey);
+    this.year.addPressedKey(pressedKey);
+    this.total.addPressedKey(pressedKey);
   }
 }
