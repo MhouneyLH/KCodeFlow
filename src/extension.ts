@@ -9,8 +9,7 @@ import {
   MONTH_AS_MILLISECONDS,
   YEAR_AS_MILLISECONDS,
 } from "./constants";
-import { getPraisingWord, setLongInterval } from "./utils";
-import { isValidChangedContent } from "./vscode_utils";
+import { getPraisingWord, isValidChangedContent, setLongInterval } from "./utils";
 import {
   keystrokeRepository,
   getMostOftenPressedKeysMessage,

@@ -1,3 +1,5 @@
+import * as vscode from "vscode";
+
 // randomly generates a praising word based on an array of praising words
 export function getPraisingWord(): string {
   const WORDS = ["Awesome", "Wonderful", "Great", "Fantastic", "Cool"];
@@ -24,4 +26,11 @@ export function setLongInterval(callback: any, timeout: number): any {
   };
 
   return setInterval(onInterval, Math.min(timeout, MAX_32_BIT_SIGNED));
+}
+
+// checks if the changes in the active document of vscode are valid
+// the last check is because of the first change in the document at the beginning
+// -> otherwise the keystrokeCount is 'instantly' counting to 2
+export function isValidChangedContent(event: vscode.TextDocumentChangeEvent): boolean {
+  return event && event.contentChanges && event.contentChanges[0].text !== undefined;
 }
