@@ -11,7 +11,9 @@ export function updateStatusBarItem(
   keystrokesValue: number = KEYSTROKE_ERROR_VALUE,
   wordsPerMinute: number = lastWordsPerMinuteValue
 ): void {
-  statusBarItem.text = `${KEYBOARD_ICON} Keystrokes: ${keystrokesValue} | ${wordsPerMinute} WPM`;
+  statusBarItem.text = `${KEYBOARD_ICON} Keystrokes: ${keystrokesValue} | ${wordsPerMinute.toFixed(
+    1
+  )} WPM`;
   lastWordsPerMinuteValue = wordsPerMinute;
 }
 
