@@ -1,5 +1,5 @@
 // Managing time spans for key strokes.
-class KeyStrokeTimeSpan {
+export class KeystrokeTimeSpan {
   private _count: number = 0;
 
   constructor(count: number) {
