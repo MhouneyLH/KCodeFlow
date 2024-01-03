@@ -39,9 +39,7 @@ export function getMostOftenPressedKeysMessage(keyMap: Map<string, number>): str
 // increments the count of the pressed key
 export function collectPressedKey(event: vscode.TextDocumentChangeEvent): void {
   const pressedKey = event.contentChanges[0].text;
-  const prevCount = pressedKeys.get(pressedKey) ?? KEYSTROKE_DEFAULT_VALUE;
-
-  pressedKeys.set(pressedKey, prevCount + 1);
+  keystrokeRepository.addPressedKeyToAll(pressedKey);
 }
 
 // takes the 3 keys, that have the highest count and returns them

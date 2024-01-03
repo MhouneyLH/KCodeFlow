@@ -1,8 +1,9 @@
 // randomly generates a praising word based on an array of praising words
 export function getPraisingWord(): string {
   const WORDS = ["Awesome", "Wonderful", "Great", "Fantastic", "Cool"];
+  const randomNumber: number = Math.floor(Math.random() * WORDS.length);
 
-  return WORDS[Math.floor(Math.random() * WORDS.length)];
+  return WORDS[randomNumber];
 }
 
 // makes it possible to use the setInterval()-method
