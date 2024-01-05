@@ -28,5 +28,16 @@ export function isValidChangedContent(event: vscode.TextDocumentChangeEvent): bo
 }
 
 export function getPressedKey(event: vscode.TextDocumentChangeEvent): string {
-  return event.contentChanges[0].text;
+  const key = event.contentChanges[0].text;
+  if (key === "\r\n") {
+    return "Enter";
+  } else if (key === "") {
+    return "Backspace";
+  } else if (key === "    ") {
+    return "Tab";
+  } else if (key === " ") {
+    return "Space";
+  }
+
+  return key;
 }
