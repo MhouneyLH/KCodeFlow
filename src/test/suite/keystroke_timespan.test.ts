@@ -16,6 +16,17 @@ suite("KeystrokeTimeSpan Test Suite", () => {
     assert.strictEqual(timeSpan.pressedKeys.size, 0);
   });
 
+  test("When initialized with a map, the count is the sum of the values in the map", () => {
+    const pressedKeys = new Map<string, number>();
+    pressedKeys.set("a", 1);
+    pressedKeys.set("b", 2);
+    pressedKeys.set("c", 3);
+
+    const timeSpan = new KeystrokeTimeSpan(pressedKeys);
+
+    assert.strictEqual(timeSpan.count, 6);
+  });
+
   test("AddPressedKey() for 'a' once, so the count is 1", () => {
     timeSpan.addPressedKey("a");
 
