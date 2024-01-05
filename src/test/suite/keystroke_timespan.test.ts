@@ -57,6 +57,19 @@ suite("KeystrokeTimeSpan Test Suite", () => {
     assert.strictEqual(timeSpan.pressedKeys.get("b"), 1);
   });
 
+  test("AddPressedKey() handles special key labels correctly (Enter, Space, Tab, Backspace)", () => {
+    timeSpan.addPressedKey("\r\n");
+    timeSpan.addPressedKey("");
+    timeSpan.addPressedKey("    ");
+    timeSpan.addPressedKey(" ");
+
+    assert.strictEqual(timeSpan.pressedKeys.size, 4);
+    assert.strictEqual(timeSpan.pressedKeys.get("Enter"), 1);
+    assert.strictEqual(timeSpan.pressedKeys.get("Backspace"), 1);
+    assert.strictEqual(timeSpan.pressedKeys.get("Tab"), 1);
+    assert.strictEqual(timeSpan.pressedKeys.get("Space"), 1);
+  });
+
   test("reset() clears all elements in the map", () => {
     timeSpan.addPressedKey("a");
     timeSpan.addPressedKey("b");

@@ -10,7 +10,22 @@ export class KeystrokeTimeSpan {
     const pressedKeyDefaultCount: number = 0;
     const previousCount: number = this._pressedKeys.get(pressedKey) ?? pressedKeyDefaultCount;
 
-    this._pressedKeys.set(pressedKey, previousCount + 1);
+    const correctKeyLabel: string = this.getCorrectKeyLabel(pressedKey);
+    this._pressedKeys.set(correctKeyLabel, previousCount + 1);
+  }
+
+  private getCorrectKeyLabel(key: string): string {
+    if (key === "\r\n") {
+      return "Enter";
+    } else if (key === "") {
+      return "Backspace";
+    } else if (key === "    ") {
+      return "Tab";
+    } else if (key === " ") {
+      return "Space";
+    }
+
+    return key;
   }
 
   public reset(): void {

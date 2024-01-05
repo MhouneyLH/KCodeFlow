@@ -69,6 +69,34 @@ suite("KeystrokeAnalyticsMessages Test Suite", () => {
   });
 
   test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the word 'Enter' when the key 'Enter' got pressed", () => {
-    // todo: Implement me! :(
+    repository.addPressedKeyToAll("\r\n");
+
+    const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
+
+    assert.strictEqual(message, `You pressed 🥇 'Enter' 1x!`);
+  });
+
+  test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the word 'Tab' when the key 'Tab' got pressed", () => {
+    repository.addPressedKeyToAll("    ");
+
+    const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
+
+    assert.strictEqual(message, `You pressed 🥇 'Tab' 1x!`);
+  });
+
+  test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the word 'Space' when the key 'Space' got pressed", () => {
+    repository.addPressedKeyToAll(" ");
+
+    const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
+
+    assert.strictEqual(message, `You pressed 🥇 'Space' 1x!`);
+  });
+
+  test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the word 'Backspace' when the key 'Backspace' got pressed", () => {
+    repository.addPressedKeyToAll("");
+
+    const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
+
+    assert.strictEqual(message, `You pressed 🥇 'Backspace' 1x!`);
   });
 });
