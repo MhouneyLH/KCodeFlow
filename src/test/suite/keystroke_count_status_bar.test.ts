@@ -26,12 +26,12 @@ suite("KeystrokeCountStatusBar Test Suite", () => {
     assert.strictEqual(statusBar["_statusBarItem"].text, `${KEYBOARD_ICON} 0`);
   });
 
-  test("Update() should set the text of the status bar item to '5' after incrementAll() got called 5 times", () => {
-    repository.incrementAll();
-    repository.incrementAll();
-    repository.incrementAll();
-    repository.incrementAll();
-    repository.incrementAll();
+  test("Update() should set the text of the status bar item to '5' after addPressedKeyToAll() got called 5 times", () => {
+    repository.addPressedKeyToAll("a");
+    repository.addPressedKeyToAll("a");
+    repository.addPressedKeyToAll("a");
+    repository.addPressedKeyToAll("a");
+    repository.addPressedKeyToAll("a");
 
     statusBar.update();
 

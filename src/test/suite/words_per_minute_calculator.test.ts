@@ -21,23 +21,23 @@ suite("WordsPerMinuteCalculator Test Suite", () => {
     assert.strictEqual(wpm, 0);
   });
 
-  test("GetAverageWordsPerMinute() returns 60 when 5 keys are pressed (5 charactes are round about 1 word)", () => {
-    repository.incrementAll();
-    repository.incrementAll();
-    repository.incrementAll();
-    repository.incrementAll();
-    repository.incrementAll();
+  test("GetAverageWordsPerMinute() returns 60 when 5 keys are pressed (5 charactes are equal to 1 word)", () => {
+    repository.addPressedKeyToAll("a");
+    repository.addPressedKeyToAll("a");
+    repository.addPressedKeyToAll("a");
+    repository.addPressedKeyToAll("a");
+    repository.addPressedKeyToAll("a");
 
     const wpm = calculator.getAverageWordsPerMinute();
     assert.strictEqual(wpm, 60);
   });
 
   test("GetAverageWordsPerMinute() returns 60 when 5 keys were pressed and at the second time without touching any further keys, it returns 30", () => {
-    repository.incrementAll();
-    repository.incrementAll();
-    repository.incrementAll();
-    repository.incrementAll();
-    repository.incrementAll();
+    repository.addPressedKeyToAll("a");
+    repository.addPressedKeyToAll("a");
+    repository.addPressedKeyToAll("a");
+    repository.addPressedKeyToAll("a");
+    repository.addPressedKeyToAll("a");
 
     const wpm1 = calculator.getAverageWordsPerMinute();
     assert.strictEqual(wpm1, 60);

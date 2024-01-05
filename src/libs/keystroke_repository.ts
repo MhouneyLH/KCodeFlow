@@ -22,25 +22,14 @@ export class KeystrokeRepository {
   }
 
   private constructor() {
-    this.second = new KeystrokeTimeSpan(0);
-    this.minute = new KeystrokeTimeSpan(0);
-    this.hour = new KeystrokeTimeSpan(0);
-    this.day = new KeystrokeTimeSpan(0);
-    this.week = new KeystrokeTimeSpan(0);
-    this.month = new KeystrokeTimeSpan(0);
-    this.year = new KeystrokeTimeSpan(0);
-    this.total = new KeystrokeTimeSpan(0);
-  }
-
-  public incrementAll(): void {
-    this.second.incrementCount();
-    this.minute.incrementCount();
-    this.hour.incrementCount();
-    this.day.incrementCount();
-    this.week.incrementCount();
-    this.month.incrementCount();
-    this.year.incrementCount();
-    this.total.incrementCount();
+    this.second = new KeystrokeTimeSpan();
+    this.minute = new KeystrokeTimeSpan();
+    this.hour = new KeystrokeTimeSpan();
+    this.day = new KeystrokeTimeSpan();
+    this.week = new KeystrokeTimeSpan();
+    this.month = new KeystrokeTimeSpan();
+    this.year = new KeystrokeTimeSpan();
+    this.total = new KeystrokeTimeSpan();
   }
 
   public addPressedKeyToAll(pressedKey: string): void {

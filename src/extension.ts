@@ -90,7 +90,6 @@ function createStatusBarItems(subscriptions: any): void {
 
 function updateKeystrokes(event: vscode.TextDocumentChangeEvent): void {
   if (isValidChangedContent(event)) {
-    keystrokeRepository.incrementAll();
     keystrokeCountStatusBar.update();
     collectPressedKey(event);
   }
@@ -100,31 +99,24 @@ function setTimers(): void {
   setInterval(() => {
     wpmStatusBar.update();
 
-    keystrokeRepository.second.resetCount();
-    keystrokeRepository.second.resetPressedKeys();
+    keystrokeRepository.second.reset();
   }, SECOND_AS_MILLISECONDS);
   setInterval(() => {
-    keystrokeRepository.minute.resetCount();
-    keystrokeRepository.minute.resetPressedKeys();
+    keystrokeRepository.minute.reset();
   }, MINUTE_AS_MILLISECONDS);
   setInterval(() => {
-    keystrokeRepository.hour.resetCount();
-    keystrokeRepository.hour.resetPressedKeys();
+    keystrokeRepository.hour.reset();
   }, HOUR_AS_MILLISECONDS);
   setInterval(() => {
-    keystrokeRepository.day.resetCount();
-    keystrokeRepository.day.resetPressedKeys();
+    keystrokeRepository.day.reset();
   }, DAY_AS_MILLISECONDS);
   setInterval(() => {
-    keystrokeRepository.week.resetCount();
-    keystrokeRepository.week.resetPressedKeys();
+    keystrokeRepository.week.reset();
   }, WEEK_AS_MILLISECONDS);
   setLongInterval(() => {
-    keystrokeRepository.month.resetCount();
-    keystrokeRepository.month.resetPressedKeys();
+    keystrokeRepository.month.reset();
   }, MONTH_AS_MILLISECONDS);
   setLongInterval(() => {
-    keystrokeRepository.year.resetCount();
-    keystrokeRepository.year.resetPressedKeys();
+    keystrokeRepository.year.reset();
   }, YEAR_AS_MILLISECONDS);
 }

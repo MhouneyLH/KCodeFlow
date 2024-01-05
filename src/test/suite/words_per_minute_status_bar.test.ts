@@ -28,12 +28,12 @@ suite("WordsPerMinuteStatusBar Test Suite", () => {
     assert.strictEqual(statusBar["_statusBarItem"].text, "0.0 wpm");
   });
 
-  test("Update() should set the text of the status bar item to '60.0 wpm' after incrementAll() got called 5 times", () => {
-    repository.incrementAll();
-    repository.incrementAll();
-    repository.incrementAll();
-    repository.incrementAll();
-    repository.incrementAll();
+  test("Update() should set the text of the status bar item to '60.0 wpm' after addPressedKeyToAll() got called 5 times", () => {
+    repository.addPressedKeyToAll("a");
+    repository.addPressedKeyToAll("a");
+    repository.addPressedKeyToAll("a");
+    repository.addPressedKeyToAll("a");
+    repository.addPressedKeyToAll("a");
 
     statusBar.update();
 

@@ -28,8 +28,8 @@ suite("KeystrokeRepository Test Suite", () => {
     assert.strictEqual(repository.total.count, 0);
   });
 
-  test("IncrementAll() increases count by 1 for every timeSpan", () => {
-    repository.incrementAll();
+  test("AddPressedKeyToAll() increases count by 1 for every timeSpan", () => {
+    repository.addPressedKeyToAll("a");
 
     assert.strictEqual(repository.second.count, 1);
     assert.strictEqual(repository.minute.count, 1);
@@ -41,7 +41,7 @@ suite("KeystrokeRepository Test Suite", () => {
     assert.strictEqual(repository.total.count, 1);
   });
 
-  test("AddPressedKeyToAll() adds pressedKey to every timeSpan", () => {
+  test("AddPressedKeyToAll() once with 'a' adds pressedKey to every timeSpan exactly one time", () => {
     repository.addPressedKeyToAll("a");
 
     assert.strictEqual(repository.second.pressedKeys.get("a"), 1);
@@ -52,6 +52,20 @@ suite("KeystrokeRepository Test Suite", () => {
     assert.strictEqual(repository.month.pressedKeys.get("a"), 1);
     assert.strictEqual(repository.year.pressedKeys.get("a"), 1);
     assert.strictEqual(repository.total.pressedKeys.get("a"), 1);
+  });
+
+  test("AddPressedKeyToAll() twice with 'a' adds pressedKey to every timeSpan exactly two times", () => {
+    repository.addPressedKeyToAll("a");
+    repository.addPressedKeyToAll("a");
+
+    assert.strictEqual(repository.second.pressedKeys.get("a"), 2);
+    assert.strictEqual(repository.minute.pressedKeys.get("a"), 2);
+    assert.strictEqual(repository.hour.pressedKeys.get("a"), 2);
+    assert.strictEqual(repository.day.pressedKeys.get("a"), 2);
+    assert.strictEqual(repository.week.pressedKeys.get("a"), 2);
+    assert.strictEqual(repository.month.pressedKeys.get("a"), 2);
+    assert.strictEqual(repository.year.pressedKeys.get("a"), 2);
+    assert.strictEqual(repository.total.pressedKeys.get("a"), 2);
   });
 
   test("getMostOftenPressedKeysInTotalWithCountInDescendingOrder() returns the pressedKeys sorted descending", () => {
