@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { KeystrokeRepository } from "../libs/keystroke_repository";
-import { KEYBOARD_ICON } from "../constants";
+import { KEYBOARD_ICON } from "../libs/constants";
 
 // Shows the total keystrokes in the status bar
 export class KeystrokCountStatusBar {

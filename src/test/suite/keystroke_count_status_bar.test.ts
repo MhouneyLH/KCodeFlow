@@ -3,7 +3,7 @@ import { KeystrokeRepository } from "../../libs/keystroke_repository";
 import { resetKeystrokeRepository } from "../test_utils";
 import * as vscode from "vscode";
 import { KeystrokCountStatusBar } from "../../status_bar/keystroke_count_status_bar";
-import { KEYBOARD_ICON } from "../../constants";
+import { KEYBOARD_ICON } from "../../libs/constants";
 
 suite("KeystrokeCountStatusBar Test Suite", () => {
   let repository: KeystrokeRepository;

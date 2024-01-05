@@ -78,7 +78,9 @@ suite("KeystrokeRepository Test Suite", () => {
 
     // idk why, but for comparison the Map needs to be converted to an array
     const mostOftenPressedKeys = Array.from(
-      repository.getMostOftenPressedKeysInTotalWithCountInDescendingOrder()
+      repository.getMostOftenPressedKeysInTotalWithCountInDescendingOrder(
+        repository.total.pressedKeys.size
+      )
     );
     const expected = Array.from(
       new Map<string, number>([

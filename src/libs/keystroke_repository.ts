@@ -43,11 +43,12 @@ export class KeystrokeRepository {
     this.total.addPressedKey(pressedKey);
   }
 
-  public getMostOftenPressedKeysInTotalWithCountInDescendingOrder(): Map<string, number> {
+  public getMostOftenPressedKeysInTotalWithCountInDescendingOrder(
+    targetSize: number
+  ): Map<string, number> {
     const entries = Array.from(this.total.pressedKeys.entries());
     entries.sort((left, right) => right[1] - left[1]);
 
-    const targetSize: number = 3;
     const topEntriesMap = new Map<string, number>(entries.slice(0, targetSize));
 
     return topEntriesMap;

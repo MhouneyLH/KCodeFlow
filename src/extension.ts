@@ -8,14 +8,13 @@ import {
   WEEK_AS_MILLISECONDS,
   MONTH_AS_MILLISECONDS,
   YEAR_AS_MILLISECONDS,
-} from "./constants";
-import { getPraisingWord, isValidChangedContent, setLongInterval } from "./utils";
+} from "./libs/constants";
+import { getPressedKey, isValidChangedContent, setLongInterval } from "./libs/utils";
 import {
   keystrokeRepository,
-  getMostOftenPressedKeysMessage,
   getKeystrokeCountAnalyticsMessage,
-  collectPressedKey,
-} from "./libs/keystrokes_analytics";
+  getThreeMostOftenpressedKeysInDescendingOrderMessage,
+} from "./libs/keystroke_analytics_messages";
 import { WordsPerMinuteCalculator } from "./libs/words_per_minute_calculator";
 import { WordsPerMinuteStatusBar } from "./status_bar/words_per_minute_status_bar";
 import { KeystrokCountStatusBar } from "./status_bar/keystroke_count_status_bar";
@@ -48,16 +47,12 @@ function createCommands(subscriptions: any): void {
 }
 
 function keystrokeCountAnalyticsCommand(): void {
-  const message = getKeystrokeCountAnalyticsMessage();
-
-  vscode.window.showInformationMessage(`😊 ${getPraisingWord()}! ${message}`);
+  const message: string = getKeystrokeCountAnalyticsMessage();
+  vscode.window.showInformationMessage(message);
 }
 
 function mostOftenPressedKeysCommand(): void {
-  const mostOftenPressedKeys =
-    keystrokeRepository.getMostOftenPressedKeysInTotalWithCountInDescendingOrder();
-  const message = getMostOftenPressedKeysMessage(mostOftenPressedKeys);
-
+  const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
   vscode.window.showInformationMessage(message);
 }
 
@@ -91,7 +86,9 @@ function createStatusBarItems(subscriptions: any): void {
 function updateKeystrokes(event: vscode.TextDocumentChangeEvent): void {
   if (isValidChangedContent(event)) {
     keystrokeCountStatusBar.update();
-    collectPressedKey(event);
+
+    const pressedKey: string = getPressedKey(event);
+    keystrokeRepository.addPressedKeyToAll(pressedKey);
   }
 }
 
