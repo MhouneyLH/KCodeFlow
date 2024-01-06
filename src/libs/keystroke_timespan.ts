@@ -49,4 +49,28 @@ export class KeystrokeTimeSpan {
 
     return count;
   }
+
+  // todo: testing
+  public toJsonObject(): any {
+    const jsonObject: any = {
+      pressedKeys: {},
+    };
+
+    for (const [key, value] of this._pressedKeys.entries()) {
+      jsonObject["pressedKeys"][key] = value as number;
+    }
+
+    return jsonObject;
+  }
+
+  // todo: testing
+  public static fromJsonObject(jsonObject: any): KeystrokeTimeSpan {
+    const pressedKeys: Map<string, number> = new Map<string, number>();
+
+    for (const [key, value] of Object.entries(jsonObject["pressedKeys"])) {
+      pressedKeys.set(key, value === undefined ? 0 : (value as number));
+    }
+
+    return new KeystrokeTimeSpan(pressedKeys);
+  }
 }

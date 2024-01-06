@@ -23,6 +23,17 @@
         "command": "keystrokemanager.mostOftenPressedKeys",
         "title": "Keystrokes: Show most often pressed keys"
       }
+    ],
+    "configuration": [
+      {
+        "title": "KeystrokeManager",
+        "properties": {
+          "keystrokeManager.configPath": {
+            "type": "string",
+            "default": "D:\\git\\vscode_keystroke_manager\\keystrokeManagerConfig.json"
+          }
+        }
+      }
     ]
   },
   "scripts": {
