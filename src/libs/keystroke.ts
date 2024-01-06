@@ -3,7 +3,6 @@ const BACKSPACE_CHARACTER: string = "";
 const TAB_CHARACTER: string = "    ";
 const SPACE_CHARACTER: string = " ";
 
-// Managing time spans for key strokes.
 export class Keystroke {
   private _key: string;
   private _timestampInMilliseconds: number;
@@ -15,6 +14,10 @@ export class Keystroke {
 
   public get key(): string {
     return this._key;
+  }
+
+  public get timestampInMilliseconds(): number {
+    return this._timestampInMilliseconds;
   }
 
   // todo: testing
@@ -35,14 +38,6 @@ export class Keystroke {
     return new Keystroke(key, timestamp);
   }
 
-  // public addPressedKey(pressedKey: string): void {
-  //   const pressedKeyDefaultCount: number = 0;
-  //   const previousCount: number = this._pressedKeys.get(pressedKey) ?? pressedKeyDefaultCount;
-
-  //   const correctKeyLabel: string = this.getCorrectKeyLabel(pressedKey);
-  //   this._pressedKeys.set(correctKeyLabel, previousCount + 1);
-  // }
-
   private getCorrectKeyLabel(key: string): string {
     if (key === ENTER_CHARACTER) {
       return "Enter";
@@ -56,13 +51,4 @@ export class Keystroke {
 
     return key;
   }
-
-  // public get count(): number {
-  //   let count: number = 0;
-  //   for (const value of this._pressedKeys.values()) {
-  //     count += value;
-  //   }
-
-  //   return count;
-  // }
 }

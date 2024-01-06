@@ -1,17 +1,9 @@
-import { KeystrokeTimeSpan } from "./keystroke";
+import { Keystroke } from "./keystroke";
 
-// Manages every time span.
 export class KeystrokeRepository {
   private static _instance: KeystrokeRepository;
 
-  public second: KeystrokeTimeSpan;
-  public minute: KeystrokeTimeSpan;
-  public hour: KeystrokeTimeSpan;
-  public day: KeystrokeTimeSpan;
-  public week: KeystrokeTimeSpan;
-  public month: KeystrokeTimeSpan;
-  public year: KeystrokeTimeSpan;
-  public total: KeystrokeTimeSpan;
+  private _allKeystrokes: Keystroke[] = [];
 
   public static getInstance(): KeystrokeRepository {
     if (!KeystrokeRepository._instance) {
@@ -21,36 +13,59 @@ export class KeystrokeRepository {
     return KeystrokeRepository._instance;
   }
 
-  private constructor() {
-    this.second = new KeystrokeTimeSpan();
-    this.minute = new KeystrokeTimeSpan();
-    this.hour = new KeystrokeTimeSpan();
-    this.day = new KeystrokeTimeSpan();
-    this.week = new KeystrokeTimeSpan();
-    this.month = new KeystrokeTimeSpan();
-    this.year = new KeystrokeTimeSpan();
-    this.total = new KeystrokeTimeSpan();
+  public keystrokeCount(): number {
+    return this._allKeystrokes.length;
   }
 
-  public addPressedKeyToAll(pressedKey: string): void {
-    this.second.addPressedKey(pressedKey);
-    this.minute.addPressedKey(pressedKey);
-    this.hour.addPressedKey(pressedKey);
-    this.day.addPressedKey(pressedKey);
-    this.week.addPressedKey(pressedKey);
-    this.month.addPressedKey(pressedKey);
-    this.year.addPressedKey(pressedKey);
-    this.total.addPressedKey(pressedKey);
+  public addPressedKey(pressedKey: string): void {
+    const timestampInMilliseconds: number = Date.now();
+    const keystroke: Keystroke = new Keystroke(pressedKey, timestampInMilliseconds);
+
+    this._allKeystrokes.push(keystroke);
   }
 
-  public getMostOftenPressedKeysInTotalWithCountInDescendingOrder(
-    targetSize: number
-  ): Map<string, number> {
-    const entries = Array.from(this.total.pressedKeys.entries());
-    entries.sort((left, right) => right[1] - left[1]);
-
-    const topEntriesMap = new Map<string, number>(entries.slice(0, targetSize));
-
-    return topEntriesMap;
+  public getAllKeystrokes(): Keystroke[] {
+    return this._allKeystrokes;
   }
+
+  public getKeystrokesInTimeSpan(
+    startTimeInMilliseconds: number,
+    endTimeInMilliseconds: number
+  ): Keystroke[] {
+    const keystrokesInTimeSpan: Keystroke[] = [];
+
+    for (const keystroke of this._allKeystrokes) {
+      if (
+        keystroke.timestampInMilliseconds >= startTimeInMilliseconds &&
+        keystroke.timestampInMilliseconds <= endTimeInMilliseconds
+      ) {
+        keystrokesInTimeSpan.push(keystroke);
+      }
+    }
+
+    return keystrokesInTimeSpan;
+  }
+
+  public keystrokesToMapWithUniqueKeys(): Map<string, number> {
+    const mapWithUniqueKeys = new Map<string, number>();
+
+    for (const keystroke of this._allKeystrokes) {
+      const key: string = keystroke.key;
+      const count: number = mapWithUniqueKeys.get(key) || 0;
+      mapWithUniqueKeys.set(key, count + 1);
+    }
+
+    return mapWithUniqueKeys;
+  }
+
+  // public getMostOftenPressedKeysInTotalWithCountInDescendingOrder(
+  //   targetSize: number
+  // ): Map<string, number> {
+  //   const entries = Array.from(this.total.pressedKeys.entries());
+  //   entries.sort((left, right) => right[1] - left[1]);
+
+  //   const topEntriesMap = new Map<string, number>(entries.slice(0, targetSize));
+
+  //   return topEntriesMap;
+  // }
 }
