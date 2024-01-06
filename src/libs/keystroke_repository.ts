@@ -13,8 +13,50 @@ export class KeystrokeRepository {
     return KeystrokeRepository._instance;
   }
 
-  public keystrokeCount(): number {
+  public allKeystrokeCount(): number {
     return this._allKeystrokes.length;
+  }
+
+  public yearKeystrokeCount(): number {
+    const nowInMilliseconds: number = Date.now();
+    const oneYearAgoInMilliseconds: number = new Date().setFullYear(new Date().getFullYear() - 1);
+
+    return this.getKeystrokesInTimeSpan(oneYearAgoInMilliseconds, nowInMilliseconds).length;
+  }
+
+  public monthKeystrokeCount(): number {
+    const nowInMilliseconds: number = Date.now();
+    const oneMonthAgoInMilliseconds: number = new Date().setMonth(new Date().getMonth() - 1);
+
+    return this.getKeystrokesInTimeSpan(oneMonthAgoInMilliseconds, nowInMilliseconds).length;
+  }
+
+  public weekKeystrokeCount(): number {
+    const nowInMilliseconds: number = Date.now();
+    const oneWeekAgoInMilliseconds: number = new Date().setDate(new Date().getDate() - 7);
+
+    return this.getKeystrokesInTimeSpan(oneWeekAgoInMilliseconds, nowInMilliseconds).length;
+  }
+
+  public dayKeystrokeCount(): number {
+    const nowInMilliseconds: number = Date.now();
+    const oneDayAgoInMilliseconds: number = new Date().setDate(new Date().getDate() - 1);
+
+    return this.getKeystrokesInTimeSpan(oneDayAgoInMilliseconds, nowInMilliseconds).length;
+  }
+
+  public hourKeystrokeCount(): number {
+    const nowInMilliseconds: number = Date.now();
+    const oneHourAgoInMilliseconds: number = new Date().setHours(new Date().getHours() - 1);
+
+    return this.getKeystrokesInTimeSpan(oneHourAgoInMilliseconds, nowInMilliseconds).length;
+  }
+
+  public minuteKeystrokeCount(): number {
+    const nowInMilliseconds: number = Date.now();
+    const oneMinuteAgoInMilliseconds: number = new Date().setMinutes(new Date().getMinutes() - 1);
+
+    return this.getKeystrokesInTimeSpan(oneMinuteAgoInMilliseconds, nowInMilliseconds).length;
   }
 
   public addPressedKey(pressedKey: string, timestampInMilliseconds: number): void {
@@ -24,24 +66,6 @@ export class KeystrokeRepository {
 
   public set allKeystrokes(keystrokes: Keystroke[]) {
     this._allKeystrokes = keystrokes;
-  }
-
-  public getKeystrokesInTimeSpan(
-    startTimeInMilliseconds: number,
-    endTimeInMilliseconds: number
-  ): Keystroke[] {
-    const keystrokesInTimeSpan: Keystroke[] = [];
-
-    for (const keystroke of this._allKeystrokes) {
-      if (
-        keystroke.timestampInMilliseconds >= startTimeInMilliseconds &&
-        keystroke.timestampInMilliseconds <= endTimeInMilliseconds
-      ) {
-        keystrokesInTimeSpan.push(keystroke);
-      }
-    }
-
-    return keystrokesInTimeSpan;
   }
 
   public keystrokesToMapWithUniqueKeysInDescendingOrder(): Map<string, number> {
@@ -85,5 +109,23 @@ export class KeystrokeRepository {
     }
 
     return mapWithUniqueKeys;
+  }
+
+  private getKeystrokesInTimeSpan(
+    startTimeInMilliseconds: number,
+    endTimeInMilliseconds: number
+  ): Keystroke[] {
+    const keystrokesInTimeSpan: Keystroke[] = [];
+
+    for (const keystroke of this._allKeystrokes) {
+      if (
+        keystroke.timestampInMilliseconds >= startTimeInMilliseconds &&
+        keystroke.timestampInMilliseconds <= endTimeInMilliseconds
+      ) {
+        keystrokesInTimeSpan.push(keystroke);
+      }
+    }
+
+    return keystrokesInTimeSpan;
   }
 }

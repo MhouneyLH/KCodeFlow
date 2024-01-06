@@ -33,7 +33,7 @@ export class Keystroke {
   // todo: testing
   public static fromJsonObject(jsonObject: any): Keystroke {
     const key: string = jsonObject["key"];
-    const timestamp: number = jsonObject["timestamp"];
+    const timestamp: number = jsonObject["timestampInMilliseconds"];
 
     return new Keystroke(key, timestamp);
   }

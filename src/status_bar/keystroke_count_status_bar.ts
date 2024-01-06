@@ -16,7 +16,7 @@ export class KeystrokCountStatusBar {
   }
 
   public update(): void {
-    const totalCount: number = this._keystrokeRepository.keystrokeCount();
+    const totalCount: number = this._keystrokeRepository.allKeystrokeCount();
     this._statusBarItem.text = `${KEYBOARD_ICON} ${totalCount}`;
   }
 

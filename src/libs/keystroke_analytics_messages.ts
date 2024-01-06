@@ -6,13 +6,13 @@ export const keystrokeRepository = KeystrokeRepository.getInstance();
 
 export function getKeystrokeCountAnalyticsMessage(): string {
   let message = `😊 ${getPraisingWord()}! `;
-  message += `You collected so far ${keystrokeRepository.keystrokeCount()} keystrokes in total.`;
-  // message += ` ${keystrokeRepository.year.count} of them this year,`;
-  // message += ` ${keystrokeRepository.month.count} this month,`;
-  // message += ` ${keystrokeRepository.week.count} this week,`;
-  // message += ` ${keystrokeRepository.day.count} today,`;
-  // message += ` ${keystrokeRepository.hour.count} this hour and`;
-  // message += ` ${keystrokeRepository.minute.count} this minute!`;
+  message += `You collected so far ${keystrokeRepository.allKeystrokeCount()} keystrokes in total.`;
+  message += ` ${keystrokeRepository.yearKeystrokeCount()} of them this year,`;
+  message += ` ${keystrokeRepository.monthKeystrokeCount()} this month,`;
+  message += ` ${keystrokeRepository.weekKeystrokeCount()} this week,`;
+  message += ` ${keystrokeRepository.dayKeystrokeCount()} today,`;
+  message += ` ${keystrokeRepository.hourKeystrokeCount()} this hour and`;
+  message += ` ${keystrokeRepository.minuteKeystrokeCount()} this minute!`;
 
   return message;
 }
@@ -26,7 +26,7 @@ function getPraisingWord(): string {
 }
 
 export function getThreeMostOftenUsedKeystrokesOfAlltimeMessage(): string {
-  if (keystrokeRepository.keystrokeCount() === 0) {
+  if (keystrokeRepository.allKeystrokeCount() === 0) {
     return "You pressed no keys so far!";
   }
 
