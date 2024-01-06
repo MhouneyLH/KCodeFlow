@@ -12,7 +12,7 @@ export class WordsPerMinuteStatusBar {
     this._wpmCalculator = wpmCalculator;
     this._statusBarItem = statusBarItem;
 
-    this._statusBarItem.text = `0.0 wpm`;
+    this.update();
     this._statusBarItem.show();
   }
 
