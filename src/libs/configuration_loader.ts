@@ -25,7 +25,7 @@ export class ConfigurationLoader {
 
   // todo: testing
   public save(): void {
-    const jsonObject: any = this.loadFromKeystrokeRepository();
+    const jsonObject: any = this.getKeystrokesAsJsonArray();
     const jsonObjectAsString: string = JSON.stringify(jsonObject, null, 2);
     const configurationFilePath: string = this.getConfigurationFilePath();
 
@@ -43,7 +43,7 @@ export class ConfigurationLoader {
     try {
       const data = fs.readFileSync(configurationFilePath, "utf8");
       const jsonObject = JSON.parse(data);
-      this.loadInKeystrokeRepository(jsonObject);
+      this.keystrokesFromJsonArray(jsonObject);
     } catch (error: any) {
       if (error.code === "ENOENT") {
         console.log(`File not found! Creating: ${configurationFilePath}`);
@@ -76,7 +76,7 @@ export class ConfigurationLoader {
     return filePath;
   }
 
-  private loadInKeystrokeRepository(jsonObject: any): void {
+  private keystrokesFromJsonArray(jsonObject: any): void {
     const keystrokesAsJsonObjects: any[] = jsonObject["keystrokes"];
     const keystrokes: Keystroke[] =
       KeystrokeRepository.allKeystrokesFromJsonArray(keystrokesAsJsonObjects);
@@ -84,7 +84,7 @@ export class ConfigurationLoader {
     this._keystrokeRepository.allKeystrokes = keystrokes;
   }
 
-  private loadFromKeystrokeRepository(): any {
+  private getKeystrokesAsJsonArray(): any {
     const jsonObject: any = {
       keystrokes: this._keystrokeRepository.allKeystrokesToJsonArray(),
     };

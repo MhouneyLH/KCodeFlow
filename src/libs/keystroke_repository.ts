@@ -13,6 +13,10 @@ export class KeystrokeRepository {
     return KeystrokeRepository._instance;
   }
 
+  public get allKeystrokes(): Keystroke[] {
+    return this._allKeystrokes;
+  }
+
   public set allKeystrokes(keystrokes: Keystroke[]) {
     this._allKeystrokes = keystrokes;
   }
