@@ -17,15 +17,17 @@ export class KeystrokeRepository {
     return this._allKeystrokes.length;
   }
 
-  public addPressedKey(pressedKey: string): void {
-    const timestampInMilliseconds: number = Date.now();
+  public addPressedKey(pressedKey: string, timestampInMilliseconds: number): void {
     const keystroke: Keystroke = new Keystroke(pressedKey, timestampInMilliseconds);
-
     this._allKeystrokes.push(keystroke);
   }
 
-  public getAllKeystrokes(): Keystroke[] {
+  public get allKeystrokes(): Keystroke[] {
     return this._allKeystrokes;
+  }
+
+  public set allKeystrokes(keystrokes: Keystroke[]) {
+    this._allKeystrokes = keystrokes;
   }
 
   public getKeystrokesInTimeSpan(
@@ -56,6 +58,26 @@ export class KeystrokeRepository {
     }
 
     return mapWithUniqueKeys;
+  }
+
+  public allKeystrokesToJsonArray(): any[] {
+    const jsonArray: any[] = [];
+
+    for (const keystroke of this._allKeystrokes) {
+      jsonArray.push(keystroke.toJsonObject());
+    }
+
+    return jsonArray;
+  }
+
+  public static allKeystrokesFromJsonArray(jsonArray: any[]): Keystroke[] {
+    const keystrokes: Keystroke[] = [];
+
+    for (const jsonObject of jsonArray) {
+      keystrokes.push(Keystroke.fromJsonObject(jsonObject));
+    }
+
+    return keystrokes;
   }
 
   // public getMostOftenPressedKeysInTotalWithCountInDescendingOrder(

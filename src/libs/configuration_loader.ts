@@ -1,8 +1,7 @@
 import * as vscode from "vscode";
 import * as fs from "fs";
 import { KeystrokeRepository } from "./keystroke_repository";
-import { KeystrokeTimeSpan } from "./keystroke";
-
+import { Keystroke } from "./keystroke";
 export class ConfigurationLoader {
   private static _instance: ConfigurationLoader;
 
@@ -78,40 +77,16 @@ export class ConfigurationLoader {
   }
 
   private loadInKeystrokeRepository(jsonObject: any): void {
-    const defaultKeystrokeTimeSpan = new KeystrokeTimeSpan();
+    const keystrokesAsJsonObjects: any[] = jsonObject["keystrokes"];
+    const keystrokes: Keystroke[] =
+      KeystrokeRepository.allKeystrokesFromJsonArray(keystrokesAsJsonObjects);
 
-    this._keystrokeRepository.second = KeystrokeTimeSpan.fromJsonObject(
-      jsonObject["second"] ?? defaultKeystrokeTimeSpan
-    );
-    this._keystrokeRepository.minute = KeystrokeTimeSpan.fromJsonObject(
-      jsonObject["minute"] ?? defaultKeystrokeTimeSpan
-    );
-    this._keystrokeRepository.hour = KeystrokeTimeSpan.fromJsonObject(
-      jsonObject["hour"] ?? defaultKeystrokeTimeSpan
-    );
-    this._keystrokeRepository.day = KeystrokeTimeSpan.fromJsonObject(
-      jsonObject["day"] ?? defaultKeystrokeTimeSpan
-    );
-    this._keystrokeRepository.month = KeystrokeTimeSpan.fromJsonObject(
-      jsonObject["month"] ?? defaultKeystrokeTimeSpan
-    );
-    this._keystrokeRepository.week = KeystrokeTimeSpan.fromJsonObject(
-      jsonObject["week"] ?? defaultKeystrokeTimeSpan
-    );
-    this._keystrokeRepository.total = KeystrokeTimeSpan.fromJsonObject(
-      jsonObject["total"] ?? defaultKeystrokeTimeSpan
-    );
+    this._keystrokeRepository.allKeystrokes = keystrokes;
   }
 
   private loadFromKeystrokeRepository(): any {
     const jsonObject: any = {
-      second: this._keystrokeRepository.second.toJsonObject(),
-      minute: this._keystrokeRepository.minute.toJsonObject(),
-      hour: this._keystrokeRepository.hour.toJsonObject(),
-      day: this._keystrokeRepository.day.toJsonObject(),
-      month: this._keystrokeRepository.month.toJsonObject(),
-      week: this._keystrokeRepository.week.toJsonObject(),
-      total: this._keystrokeRepository.total.toJsonObject(),
+      keystrokes: this._keystrokeRepository.allKeystrokesToJsonArray(),
     };
 
     return jsonObject;
