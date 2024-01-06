@@ -13,7 +13,7 @@ export class WordsPerMinuteCalculator {
   public getAverageWordsPerMinute(): number {
     ++this._totalTimeCalled;
 
-    const totalWordCount = this.getWordCountFromKeyCount(this._repository.total.count);
+    const totalWordCount = this.getWordCountFromKeyCount(this._repository.keystrokeCount());
     const wpm = (totalWordCount / this._totalTimeCalled) * 60;
     return wpm;
   }

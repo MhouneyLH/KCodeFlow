@@ -22,10 +22,6 @@ export class KeystrokeRepository {
     this._allKeystrokes.push(keystroke);
   }
 
-  public get allKeystrokes(): Keystroke[] {
-    return this._allKeystrokes;
-  }
-
   public set allKeystrokes(keystrokes: Keystroke[]) {
     this._allKeystrokes = keystrokes;
   }
@@ -48,16 +44,15 @@ export class KeystrokeRepository {
     return keystrokesInTimeSpan;
   }
 
-  public keystrokesToMapWithUniqueKeys(): Map<string, number> {
-    const mapWithUniqueKeys = new Map<string, number>();
+  public keystrokesToMapWithUniqueKeysInDescendingOrder(): Map<string, number> {
+    const mapWithUniqueKeys = this.keystrokesToMapWithUniqueKeys();
 
-    for (const keystroke of this._allKeystrokes) {
-      const key: string = keystroke.key;
-      const count: number = mapWithUniqueKeys.get(key) || 0;
-      mapWithUniqueKeys.set(key, count + 1);
-    }
+    const entries = Array.from(mapWithUniqueKeys.entries());
+    entries.sort((left, right) => right[1] - left[1]);
 
-    return mapWithUniqueKeys;
+    const sortedMap = new Map<string, number>(entries);
+
+    return sortedMap;
   }
 
   public allKeystrokesToJsonArray(): any[] {
@@ -80,14 +75,15 @@ export class KeystrokeRepository {
     return keystrokes;
   }
 
-  // public getMostOftenPressedKeysInTotalWithCountInDescendingOrder(
-  //   targetSize: number
-  // ): Map<string, number> {
-  //   const entries = Array.from(this.total.pressedKeys.entries());
-  //   entries.sort((left, right) => right[1] - left[1]);
+  private keystrokesToMapWithUniqueKeys(): Map<string, number> {
+    const mapWithUniqueKeys = new Map<string, number>();
 
-  //   const topEntriesMap = new Map<string, number>(entries.slice(0, targetSize));
+    for (const keystroke of this._allKeystrokes) {
+      const key: string = keystroke.key;
+      const count: number = mapWithUniqueKeys.get(key) || 0;
+      mapWithUniqueKeys.set(key, count + 1);
+    }
 
-  //   return topEntriesMap;
-  // }
+    return mapWithUniqueKeys;
+  }
 }
