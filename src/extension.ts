@@ -105,7 +105,7 @@ function updateKeystrokes(event: vscode.TextDocumentChangeEvent): void {
 const test7 = new Date().setSeconds(new Date().getSeconds() + 1) - Date.now();
 //! Wie speichern?
 // Startzeitpunkt speichern (jedes mal, wenn resettet wird, muss der ja wieder neu gesetzt werden)
-// Aktueller Zeitpunkt speichern (jedes mal, wenn geschlossen wird oder so, sollte der gespeichert werden)
+// Aktueller Zeitpunkt speichern (jedes mal, wenn geschlossen wird oder so, sollte der gespeichert werden -> muss er nicht, kann man sich ja einfach so mit Date.now() holen)
 // damit kann man dann die Differenz berechnen und kommt auf die Zeit, die vergangen ist (= Aktuell - Start)
 // wenn das bspw. kleiner als new Date.setYears(new Date().getYear() + 1) ist, dann ist es noch im Jahr
 // wenn das bspw. kleiner als new Date.setMonths(new Date().getMonth() + 1) ist, dann ist es noch im Monat
@@ -114,6 +114,9 @@ const test7 = new Date().setSeconds(new Date().getSeconds() + 1) - Date.now();
 // wenn das bspw. kleiner als new Date.setMinutes(new Date().getMinutes() + 1) ist, dann ist es noch in der Minute
 // wenn das bspw. kleiner als new Date.setSeconds(new Date().getSeconds() + 1) ist, dann ist es noch in der Sekunde
 // sonst ist es schon in der nächsten Sekunde und es kann bspw. eine Meldung angezeigt werden mit einer Mini-Auswertung
+
+// ist doch nicht so einfach, wie ich dachte :0
+// am besten einfach nur noch im Timespan einen timestamp machen und basierend auf dem wird dann immer entschieden, ob es noch in einem bestimmten Timespan ist oder nicht
 
 //! Was soll noch reinkommen?
 // Speichern der Daten

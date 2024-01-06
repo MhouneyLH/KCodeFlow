@@ -1,4 +1,4 @@
-import { KeystrokeTimeSpan } from "./keystroke_timespan";
+import { KeystrokeTimeSpan } from "./keystroke";
 
 // Manages every time span.
 export class KeystrokeRepository {

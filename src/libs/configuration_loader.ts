@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 import * as fs from "fs";
 import { KeystrokeRepository } from "./keystroke_repository";
-import { KeystrokeTimeSpan } from "./keystroke_timespan";
+import { KeystrokeTimeSpan } from "./keystroke";
 
 export class ConfigurationLoader {
   private static _instance: ConfigurationLoader;

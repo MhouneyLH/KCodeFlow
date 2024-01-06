@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { KeystrokeTimeSpan } from "../../libs/keystroke_timespan";
+import { KeystrokeTimeSpan } from "../../libs/keystroke";
 
 suite("KeystrokeTimeSpan Test Suite", () => {
   let timeSpan: KeystrokeTimeSpan;
