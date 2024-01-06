@@ -1,3 +1,8 @@
+const ENTER_CHARACTER: string = "\r\n";
+const BACKSPACE_CHARACTER: string = "";
+const TAB_CHARACTER: string = "    ";
+const SPACE_CHARACTER: string = " ";
+
 // Managing time spans for key strokes.
 export class KeystrokeTimeSpan {
   private _pressedKeys: Map<string, number>;
@@ -15,13 +20,13 @@ export class KeystrokeTimeSpan {
   }
 
   private getCorrectKeyLabel(key: string): string {
-    if (key === "\r\n") {
+    if (key === ENTER_CHARACTER) {
       return "Enter";
-    } else if (key === "") {
+    } else if (key === BACKSPACE_CHARACTER) {
       return "Backspace";
-    } else if (key === "    ") {
+    } else if (key === TAB_CHARACTER) {
       return "Tab";
-    } else if (key === " ") {
+    } else if (key === SPACE_CHARACTER) {
       return "Space";
     }
 
