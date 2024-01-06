@@ -13,6 +13,18 @@ export class KeystrokeRepository {
     return KeystrokeRepository._instance;
   }
 
+  public set allKeystrokes(keystrokes: Keystroke[]) {
+    this._allKeystrokes = keystrokes;
+  }
+
+  public getFirstKeystroke(): Keystroke {
+    return this._allKeystrokes[0];
+  }
+
+  public getLastKeystroke(): Keystroke {
+    return this._allKeystrokes[this._allKeystrokes.length - 1];
+  }
+
   public allKeystrokeCount(): number {
     return this._allKeystrokes.length;
   }
@@ -62,10 +74,6 @@ export class KeystrokeRepository {
   public addPressedKey(pressedKey: string, timestampInMilliseconds: number): void {
     const keystroke: Keystroke = new Keystroke(pressedKey, timestampInMilliseconds);
     this._allKeystrokes.push(keystroke);
-  }
-
-  public set allKeystrokes(keystrokes: Keystroke[]) {
-    this._allKeystrokes = keystrokes;
   }
 
   public keystrokesToMapWithUniqueKeysInDescendingOrder(): Map<string, number> {
