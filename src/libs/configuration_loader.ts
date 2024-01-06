@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
-import { KeystrokeRepository } from "./keystroke_repository";
 import * as fs from "fs";
+import { KeystrokeRepository } from "./keystroke_repository";
 import { KeystrokeTimeSpan } from "./keystroke_timespan";
 
 export class ConfigurationLoader {
@@ -9,8 +9,7 @@ export class ConfigurationLoader {
   private _keystrokeRepository: KeystrokeRepository;
 
   private static readonly configSection = "keystrokeManager";
-  private static readonly defaultConfigFilePath =
-    "D:\\git\\vscode_keystroke_manager\\keystrokeManagerConfig.json";
+  private static readonly defaultConfigurationFileName = "keystrokeManagerConfig.json";
 
   // todo: testing
   public static getInstance(keystrokeRepository: KeystrokeRepository): ConfigurationLoader {
@@ -70,8 +69,10 @@ export class ConfigurationLoader {
 
   private getConfigurationFilePath(): string {
     const configuration = this.getExtensionConfiguration();
-    const filePath =
-      configuration.get<string>("configPath") ?? ConfigurationLoader.defaultConfigFilePath;
+    let filePath = __dirname + "\\..\\";
+    filePath +=
+      configuration.get<string>("configurationFileName") ??
+      ConfigurationLoader.defaultConfigurationFileName;
 
     return filePath;
   }
