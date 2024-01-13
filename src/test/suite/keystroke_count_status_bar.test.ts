@@ -1,14 +1,13 @@
 // import * as assert from "assert";
 // import { KeystrokeRepository } from "../../libs/keystroke_repository";
-// import { resetKeystrokeRepository } from "../test_utils";
 // import * as vscode from "vscode";
 // import { KeystrokCountStatusBar } from "../../status_bar/keystroke_count_status_bar";
 // import { KEYBOARD_ICON } from "../../libs/constants";
 
 // suite("KeystrokeCountStatusBar Test Suite", () => {
-//   let repository: KeystrokeRepository;
-//   let statusBarItem: vscode.StatusBarItem;
-//   let statusBar: KeystrokCountStatusBar;
+//   let repository: any;
+//   let statusBarItem: any;
+//   let statusBar: any;
 
 //   setup(() => {
 //     repository = KeystrokeRepository.getInstance();
@@ -17,7 +16,9 @@
 //   });
 
 //   teardown(() => {
-//     resetKeystrokeRepository(repository);
+//     repository = null;
+//     statusBarItem = null;
+//     statusBar = null;
 //   });
 
 //   test("Update() sets the text of the status bar item properly", () => {

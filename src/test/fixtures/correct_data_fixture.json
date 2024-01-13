@@ -1,0 +1,13 @@
+{
+    "keystrokes":
+    [
+        {
+            "key": "a",
+            "timestampInMilliseconds": 1000
+        },
+        {
+            "key": "b",
+            "timestampInMilliseconds": 2000
+        }
+    ]
+}

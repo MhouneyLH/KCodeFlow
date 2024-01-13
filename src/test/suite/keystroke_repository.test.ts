@@ -1,16 +1,15 @@
 // import * as assert from "assert";
 // import { KeystrokeRepository } from "../../libs/keystroke_repository";
-// import { resetKeystrokeRepository } from "../test_utils";
 
 // suite("KeystrokeRepository Test Suite", () => {
-//   let repository: KeystrokeRepository;
+//   let repository: any;
 
 //   setup(() => {
 //     repository = KeystrokeRepository.getInstance();
 //   });
 
 //   teardown(() => {
-//     resetKeystrokeRepository(repository);
+//     repository = null;
 //   });
 
 //   test("getInstance() returns the same instance", () => {

@@ -1,20 +1,19 @@
 // import * as assert from "assert";
 // import { KeystrokeRepository } from "../../libs/keystroke_repository";
-// import { resetKeystrokeRepository } from "../test_utils";
 // import {
 //   getKeystrokeCountAnalyticsMessage,
-//   getThreeMostOftenpressedKeysInDescendingOrderMessage,
+//   getThreeMostOftenUsedKeystrokesOfAlltimeMessage,
 // } from "../../libs/keystroke_analytics_messages";
 
 // suite("KeystrokeAnalyticsMessages Test Suite", () => {
-//   let repository: KeystrokeRepository;
+//   let repository: any;
 
 //   setup(() => {
 //     repository = KeystrokeRepository.getInstance();
 //   });
 
 //   teardown(() => {
-//     resetKeystrokeRepository(repository);
+//     repository = null;
 //   });
 
 //   test("getKeystrokeCountAnalyticsMessage() returns the correct message", () => {

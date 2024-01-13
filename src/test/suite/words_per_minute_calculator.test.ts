@@ -1,11 +1,10 @@
 // import * as assert from "assert";
 // import { KeystrokeRepository } from "../../libs/keystroke_repository";
 // import { WordsPerMinuteCalculator } from "../../libs/words_per_minute_calculator";
-// import { resetKeystrokeRepository } from "../test_utils";
 
 // suite("WordsPerMinuteCalculator Test Suite", () => {
-//   let repository: KeystrokeRepository;
-//   let calculator: WordsPerMinuteCalculator;
+//   let repository: any;
+//   let calculator: any;
 
 //   setup(() => {
 //     repository = KeystrokeRepository.getInstance();
@@ -13,7 +12,8 @@
 //   });
 
 //   teardown(() => {
-//     resetKeystrokeRepository(repository);
+//     repository = null;
+//     calculator = null;
 //   });
 
 //   test("GetAverageWordsPerMinute() returns 0 when no key is pressed", () => {

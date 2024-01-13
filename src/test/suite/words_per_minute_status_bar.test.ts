@@ -1,15 +1,14 @@
 // import * as assert from "assert";
 // import { KeystrokeRepository } from "../../libs/keystroke_repository";
 // import { WordsPerMinuteCalculator } from "../../libs/words_per_minute_calculator";
-// import { resetKeystrokeRepository } from "../test_utils";
 // import { WordsPerMinuteStatusBar } from "../../status_bar/words_per_minute_status_bar";
 // import * as vscode from "vscode";
 
 // suite("WordsPerMinuteStatusBar Test Suite", () => {
-//   let repository: KeystrokeRepository;
-//   let calculator: WordsPerMinuteCalculator;
-//   let statusBarItem: vscode.StatusBarItem;
-//   let statusBar: WordsPerMinuteStatusBar;
+//   let repository: any;
+//   let calculator: any;
+//   let statusBarItem: any;
+//   let statusBar: any;
 
 //   setup(() => {
 //     repository = KeystrokeRepository.getInstance();
@@ -19,7 +18,10 @@
 //   });
 
 //   teardown(() => {
-//     resetKeystrokeRepository(repository);
+//     repository = null;
+//     calculator = null;
+//     statusBarItem = null;
+//     statusBar = null;
 //   });
 
 //   test("Update() sets the text of the status bar item properly", () => {
