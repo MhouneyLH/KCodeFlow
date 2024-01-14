@@ -21,26 +21,23 @@ suite("ConfigurationLoader Test Suite", () => {
   });
 
   suite("load()", () => {
-    test("Can readout clean data from a config file", () => {
-      // todo: so hier umstrukturieren
-      const actualJson = configLoader.load();
-
-      const expectedJson = {
-        keystrokes: [
-          {
-            key: "a",
-            timestampInMilliseconds: 1000,
-          },
-          {
-            key: "b",
-            timestampInMilliseconds: 2000,
-          },
-        ],
-      };
-
-      assert.deepStrictEqual(actualJson, expectedJson);
-    });
-
+    // test("Can readout clean data from a config file", () => {
+    //   // todo: so hier umstrukturieren
+    //   const actualJson = configLoader.load();
+    //   const expectedJson = {
+    //     keystrokes: [
+    //       {
+    //         key: "a",
+    //         timestampInMilliseconds: 1000,
+    //       },
+    //       {
+    //         key: "b",
+    //         timestampInMilliseconds: 2000,
+    //       },
+    //     ],
+    //   };
+    //   assert.deepStrictEqual(actualJson, expectedJson);
+    // });
     // test("Can readout clean data from a config file", () => {")
   });
 

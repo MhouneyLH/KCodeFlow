@@ -1,7 +1,7 @@
-const ENTER_CHARACTER: string = "\r\n";
-const BACKSPACE_CHARACTER: string = "";
-const TAB_CHARACTER: string = "    ";
-const SPACE_CHARACTER: string = " ";
+export const ENTER_CHARACTER: string = "\r\n";
+export const BACKSPACE_CHARACTER: string = "";
+export const TAB_CHARACTER: string = "    ";
+export const SPACE_CHARACTER: string = " ";
 
 export class Keystroke {
   private _key: string;
