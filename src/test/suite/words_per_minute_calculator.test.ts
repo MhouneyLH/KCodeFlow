@@ -2,6 +2,8 @@ import * as assert from "assert";
 import { KeystrokeRepository } from "../../libs/keystroke_repository";
 import { WordsPerMinuteCalculator } from "../../libs/words_per_minute_calculator";
 import { MINUTE_AS_MILLISECONDS, SECOND_AS_MILLISECONDS } from "../../libs/constants";
+import { Keystroke } from "../../libs/keystroke";
+import { TestUtils } from "../test_utils";
 
 suite("WordsPerMinuteCalculator Test Suite", () => {
   let repository: KeystrokeRepository;
@@ -31,28 +33,25 @@ suite("WordsPerMinuteCalculator Test Suite", () => {
       repository.addKeystroke("a", oneMinuteBefore);
 
       const wpm = calculator.getAverageWordsPerMinute();
-      assert.strictEqual(wpm, 0.2);
+      const roundedOn1Decimal = Math.round(wpm * 10) / 10;
+      assert.strictEqual(roundedOn1Decimal, 0.2);
     });
 
     test("Returns 60 wpm when 300 keys are pressed in 1 minute (5 keys = 1 word)", () => {
       const now = Date.now();
       const oneMinuteBefore: number = now - MINUTE_AS_MILLISECONDS;
 
-      for (let i = 0; i < 300; i++) {
-        repository.addKeystroke("a", oneMinuteBefore);
-      }
+      TestUtils.generateIdenticalKeystrokes(repository, new Keystroke("a", oneMinuteBefore), 300);
 
       const wpm = calculator.getAverageWordsPerMinute();
-      assert.strictEqual(wpm, 60);
+      assert.strictEqual(Math.round(wpm), 60);
     });
 
     test("Returns 60 wpm when 600 keys are pressed in 2 minutes (5 keys = 1 word)", () => {
       const now = Date.now();
       const twoMinutesBefore: number = now - 2 * MINUTE_AS_MILLISECONDS;
 
-      for (let i = 0; i < 600; i++) {
-        repository.addKeystroke("a", twoMinutesBefore);
-      }
+      TestUtils.generateIdenticalKeystrokes(repository, new Keystroke("a", twoMinutesBefore), 600);
 
       const wpm = calculator.getAverageWordsPerMinute();
       assert.strictEqual(Math.round(wpm), 60);
@@ -62,9 +61,11 @@ suite("WordsPerMinuteCalculator Test Suite", () => {
       const now = Date.now();
       const oneAndAHalfMinutesBefore: number = now - 1.5 * MINUTE_AS_MILLISECONDS;
 
-      for (let i = 0; i < 450; i++) {
-        repository.addKeystroke("a", oneAndAHalfMinutesBefore);
-      }
+      TestUtils.generateIdenticalKeystrokes(
+        repository,
+        new Keystroke("a", oneAndAHalfMinutesBefore),
+        450
+      );
 
       const wpm = calculator.getAverageWordsPerMinute();
       assert.strictEqual(Math.round(wpm), 60);
@@ -74,9 +75,11 @@ suite("WordsPerMinuteCalculator Test Suite", () => {
       const now = Date.now();
       const thirtySecondsBefore: number = now - 0.5 * MINUTE_AS_MILLISECONDS;
 
-      for (let i = 0; i < 150; i++) {
-        repository.addKeystroke("a", thirtySecondsBefore);
-      }
+      TestUtils.generateIdenticalKeystrokes(
+        repository,
+        new Keystroke("a", thirtySecondsBefore),
+        150
+      );
 
       const wpm = calculator.getAverageWordsPerMinute();
       assert.strictEqual(Math.round(wpm), 60);

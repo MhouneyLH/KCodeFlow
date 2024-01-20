@@ -1,44 +1,49 @@
-// import * as assert from "assert";
-// import { KeystrokeRepository } from "../../libs/keystroke_repository";
-// import { WordsPerMinuteCalculator } from "../../libs/words_per_minute_calculator";
-// import { WordsPerMinuteStatusBar } from "../../status_bar/words_per_minute_status_bar";
-// import * as vscode from "vscode";
+import * as assert from "assert";
+import { KeystrokeRepository } from "../../libs/keystroke_repository";
+import { WordsPerMinuteCalculator } from "../../libs/words_per_minute_calculator";
+import { WordsPerMinuteStatusBar } from "../../status_bar/words_per_minute_status_bar";
+import * as vscode from "vscode";
+import { MINUTE_AS_MILLISECONDS } from "../../libs/constants";
+import { Keystroke } from "../../libs/keystroke";
+import { TestUtils } from "../test_utils";
 
-// suite("WordsPerMinuteStatusBar Test Suite", () => {
-//   let repository: any;
-//   let calculator: any;
-//   let statusBarItem: any;
-//   let statusBar: any;
+suite("WordsPerMinuteStatusBar Test Suite", () => {
+  let repository: KeystrokeRepository;
+  let calculator: WordsPerMinuteCalculator;
+  let statusBarItem: vscode.StatusBarItem;
+  let statusBar: WordsPerMinuteStatusBar;
 
-//   setup(() => {
-//     repository = KeystrokeRepository.getInstance();
-//     calculator = new WordsPerMinuteCalculator(repository);
-//     statusBarItem = vscode.window.createStatusBarItem();
-//     statusBar = new WordsPerMinuteStatusBar(calculator, statusBarItem);
-//   });
+  setup(() => {
+    repository = KeystrokeRepository.getInstance();
+    calculator = new WordsPerMinuteCalculator(repository);
+    statusBarItem = vscode.window.createStatusBarItem();
+    statusBar = new WordsPerMinuteStatusBar(calculator, statusBarItem);
+  });
 
-//   teardown(() => {
-//     repository = null;
-//     calculator = null;
-//     statusBarItem = null;
-//     statusBar = null;
-//   });
+  teardown(() => {
+    repository.allKeystrokes = [];
+    repository = null as any;
+    calculator = null as any;
+    statusBarItem = null as any;
+    statusBar = null as any;
+  });
 
-//   test("Update() sets the text of the status bar item properly", () => {
-//     statusBar.update();
+  suite("update()", () => {
+    test("For 0 wpm the status bar text is set to '0.0 wpm'", () => {
+      statusBar.update();
 
-//     assert.strictEqual(statusBar["_statusBarItem"].text, "0.0 wpm");
-//   });
+      assert.strictEqual(statusBar["_statusBarItem"].text, "0.0 wpm");
+    });
 
-//   test("Update() should set the text of the status bar item to '60.0 wpm' after addKeystrokeToAll() got called 5 times", () => {
-//     repository.addKeystrokeToAll("a");
-//     repository.addKeystrokeToAll("a");
-//     repository.addKeystrokeToAll("a");
-//     repository.addKeystrokeToAll("a");
-//     repository.addKeystrokeToAll("a");
+    test("For 60 wpm the status bar text is set to '60.0 wpm'", () => {
+      const now = Date.now();
+      const oneMinuteBefore: number = now - MINUTE_AS_MILLISECONDS;
 
-//     statusBar.update();
+      TestUtils.generateIdenticalKeystrokes(repository, new Keystroke("a", oneMinuteBefore), 300);
 
-//     assert.strictEqual(statusBar["_statusBarItem"].text, "60.0 wpm");
-//   });
-// });
+      statusBar.update();
+
+      assert.strictEqual(statusBar["_statusBarItem"].text, "60.0 wpm");
+    });
+  });
+});

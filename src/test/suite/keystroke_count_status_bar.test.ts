@@ -1,41 +1,42 @@
-// import * as assert from "assert";
-// import { KeystrokeRepository } from "../../libs/keystroke_repository";
-// import * as vscode from "vscode";
-// import { KeystrokCountStatusBar } from "../../status_bar/keystroke_count_status_bar";
-// import { KEYBOARD_ICON } from "../../libs/constants";
+import * as assert from "assert";
+import { KeystrokeRepository } from "../../libs/keystroke_repository";
+import * as vscode from "vscode";
+import { KeystrokCountStatusBar } from "../../status_bar/keystroke_count_status_bar";
+import { KEYBOARD_ICON } from "../../libs/constants";
+import { Keystroke } from "../../libs/keystroke";
+import { TestUtils } from "../test_utils";
 
-// suite("KeystrokeCountStatusBar Test Suite", () => {
-//   let repository: any;
-//   let statusBarItem: any;
-//   let statusBar: any;
+suite("KeystrokeCountStatusBar Test Suite", () => {
+  let repository: KeystrokeRepository;
+  let statusBarItem: vscode.StatusBarItem;
+  let statusBar: KeystrokCountStatusBar;
 
-//   setup(() => {
-//     repository = KeystrokeRepository.getInstance();
-//     statusBarItem = vscode.window.createStatusBarItem();
-//     statusBar = new KeystrokCountStatusBar(repository, statusBarItem);
-//   });
+  setup(() => {
+    repository = KeystrokeRepository.getInstance();
+    statusBarItem = vscode.window.createStatusBarItem();
+    statusBar = new KeystrokCountStatusBar(repository, statusBarItem);
+  });
 
-//   teardown(() => {
-//     repository = null;
-//     statusBarItem = null;
-//     statusBar = null;
-//   });
+  teardown(() => {
+    repository.allKeystrokes = [];
+    repository = null as any;
+    statusBarItem = null as any;
+    statusBar = null as any;
+  });
 
-//   test("Update() sets the text of the status bar item properly", () => {
-//     statusBar.update();
+  suite("update()", () => {
+    test(`For 0 keys pressed the status bar text is set to '${KEYBOARD_ICON} 0'`, () => {
+      statusBar.update();
 
-//     assert.strictEqual(statusBar["_statusBarItem"].text, `${KEYBOARD_ICON} 0`);
-//   });
+      assert.strictEqual(statusBar["_statusBarItem"].text, `${KEYBOARD_ICON} 0`);
+    });
 
-//   test("Update() should set the text of the status bar item to '5' after addKeystrokeToAll() got called 5 times", () => {
-//     repository.addKeystrokeToAll("a");
-//     repository.addKeystrokeToAll("a");
-//     repository.addKeystrokeToAll("a");
-//     repository.addKeystrokeToAll("a");
-//     repository.addKeystrokeToAll("a");
+    test(`For 5 keys pressed the status bar text is set to '${KEYBOARD_ICON} 5'`, () => {
+      TestUtils.generateIdenticalKeystrokes(repository, new Keystroke("a", 0), 5);
 
-//     statusBar.update();
+      statusBar.update();
 
-//     assert.strictEqual(statusBar["_statusBarItem"].text, `${KEYBOARD_ICON} 5`);
-//   });
-// });
+      assert.strictEqual(statusBar["_statusBarItem"].text, `${KEYBOARD_ICON} 5`);
+    });
+  });
+});
