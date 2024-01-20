@@ -1,101 +1,74 @@
-// import * as assert from "assert";
-// import { KeystrokeRepository } from "../../libs/keystroke_repository";
-// import {
-//   getKeystrokeCountAnalyticsMessage,
-//   getThreeMostOftenUsedKeystrokesOfAlltimeMessage,
-// } from "../../libs/keystroke_analytics_messages";
+import * as assert from "assert";
+import { KeystrokeRepository } from "../../libs/keystroke_repository";
+import {
+  getKeystrokeCountAnalyticsMessage,
+  getThreeMostOftenUsedKeystrokesOfAlltimeMessage,
+} from "../../libs/keystroke_analytics_messages";
 
-// suite("KeystrokeAnalyticsMessages Test Suite", () => {
-//   let repository: any;
+suite("KeystrokeAnalyticsMessages Test Suite", () => {
+  let repository: KeystrokeRepository;
 
-//   setup(() => {
-//     repository = KeystrokeRepository.getInstance();
-//   });
+  setup(() => {
+    repository = KeystrokeRepository.getInstance();
+  });
 
-//   teardown(() => {
-//     repository = null;
-//   });
+  teardown(() => {
+    repository.allKeystrokes = [];
+    repository = null as any;
+  });
 
-//   test("getKeystrokeCountAnalyticsMessage() returns the correct message", () => {
-//     repository.addKeystrokeToAll("a");
-//     const expectedPattern =
-//       /😊 (.*)! You collected so far 1 keystrokes in total. 1 of them this year, 1 this month, 1 this week, 1 today, 1 this hour and 1 this minute!/;
+  test("getKeystrokeCountAnalyticsMessage() returns the correct message", () => {
+    repository.addKeystroke("a", Date.now());
 
-//     const message: string = getKeystrokeCountAnalyticsMessage();
+    const expected =
+      /😊 (.*)! You collected so far 1 keystrokes in total. 1 of them this year, 1 this month, 1 this week, 1 today, 1 this hour and 1 this minute!/;
+    const actual: string = getKeystrokeCountAnalyticsMessage();
 
-//     assert.match(message, expectedPattern);
-//   });
+    assert.match(actual, expected);
+  });
 
-//   test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the correct message", () => {
-//     repository.addKeystrokeToAll("a");
-//     repository.addKeystrokeToAll("a");
-//     repository.addKeystrokeToAll("a");
-//     repository.addKeystrokeToAll("a");
-//     repository.addKeystrokeToAll("b");
-//     repository.addKeystrokeToAll("b");
-//     repository.addKeystrokeToAll("b");
-//     repository.addKeystrokeToAll("c");
-//     repository.addKeystrokeToAll("c");
-//     repository.addKeystrokeToAll("d");
+  test("getThreeMostOftenUsedKeystrokesOfAlltimeMessage() returns the correct message", () => {
+    repository.addKeystroke("a", Date.now());
+    repository.addKeystroke("a", Date.now());
+    repository.addKeystroke("a", Date.now());
+    repository.addKeystroke("a", Date.now());
+    repository.addKeystroke("b", Date.now());
+    repository.addKeystroke("b", Date.now());
+    repository.addKeystroke("b", Date.now());
+    repository.addKeystroke("c", Date.now());
+    repository.addKeystroke("c", Date.now());
+    repository.addKeystroke("d", Date.now());
 
-//     const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
+    const expected: string = "You pressed 🥇 'a' 4x, 🥈 'b' 3x, 🥉 'c' 2x!";
+    const actual: string = getThreeMostOftenUsedKeystrokesOfAlltimeMessage();
 
-//     assert.strictEqual(message, `You pressed 🥇 'a' 4x, 🥈 'b' 3x, 🥉 'c' 2x!`);
-//   });
+    assert.strictEqual(actual, expected);
+  });
 
-//   test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the correct message when there is only one pressed key", () => {
-//     repository.addKeystrokeToAll("a");
+  test("getThreeMostOftenUsedKeystrokesOfAlltimeMessage() returns the correct message when there is only one pressed key", () => {
+    repository.addKeystroke("a", Date.now());
 
-//     const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
+    const expected: string = "You pressed 🥇 'a' 1x!";
+    const actual: string = getThreeMostOftenUsedKeystrokesOfAlltimeMessage();
 
-//     assert.strictEqual(message, `You pressed 🥇 'a' 1x!`);
-//   });
+    assert.strictEqual(actual, expected);
+  });
 
-//   test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the correct message when there are less than 3 pressed keys", () => {
-//     repository.addKeystrokeToAll("a");
-//     repository.addKeystrokeToAll("a");
-//     repository.addKeystrokeToAll("b");
+  test("getThreeMostOftenUsedKeystrokesOfAlltimeMessage() returns the correct message when there are less than 3 pressed keys", () => {
+    repository.addKeystroke("a", Date.now());
+    repository.addKeystroke("a", Date.now());
+    repository.addKeystroke("b", Date.now());
 
-//     const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
+    const expected: string = "You pressed 🥇 'a' 2x, 🥈 'b' 1x!";
+    const actual: string = getThreeMostOftenUsedKeystrokesOfAlltimeMessage();
 
-//     assert.strictEqual(message, `You pressed 🥇 'a' 2x, 🥈 'b' 1x!`);
-//   });
+    assert.strictEqual(actual, expected);
+  });
 
-//   test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the correct message when there are no pressed keys", () => {
-//     const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
+  test("getThreeMostOftenUsedKeystrokesOfAlltimeMessage() returns the correct message when there are no pressed keys", () => {
+    const expected: string = "You pressed no keys so far!";
+    const actual: string = getThreeMostOftenUsedKeystrokesOfAlltimeMessage();
 
-//     assert.strictEqual(message, "You pressed no keys so far!");
-//   });
-
-//   test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the word 'Enter' when the key 'Enter' got pressed", () => {
-//     repository.addKeystrokeToAll("\r\n");
-
-//     const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
-
-//     assert.strictEqual(message, `You pressed 🥇 'Enter' 1x!`);
-//   });
-
-//   test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the word 'Tab' when the key 'Tab' got pressed", () => {
-//     repository.addKeystrokeToAll("    ");
-
-//     const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
-
-//     assert.strictEqual(message, `You pressed 🥇 'Tab' 1x!`);
-//   });
-
-//   test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the word 'Space' when the key 'Space' got pressed", () => {
-//     repository.addKeystrokeToAll(" ");
-
-//     const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
-
-//     assert.strictEqual(message, `You pressed 🥇 'Space' 1x!`);
-//   });
-
-//   test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the word 'Backspace' when the key 'Backspace' got pressed", () => {
-//     repository.addKeystrokeToAll("");
-
-//     const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
-
-//     assert.strictEqual(message, `You pressed 🥇 'Backspace' 1x!`);
-//   });
-// });
+    assert.strictEqual(actual, expected);
+  });
+});
