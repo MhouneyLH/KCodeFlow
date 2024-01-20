@@ -104,6 +104,4 @@ suite("KeystrokeRepository Test Suite", () => {
 
     assert.deepStrictEqual(actual, expected);
   });
-
-  
 });

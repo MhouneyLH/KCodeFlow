@@ -1,48 +1,85 @@
-// import * as assert from "assert";
-// import { KeystrokeRepository } from "../../libs/keystroke_repository";
-// import { WordsPerMinuteCalculator } from "../../libs/words_per_minute_calculator";
+import * as assert from "assert";
+import { KeystrokeRepository } from "../../libs/keystroke_repository";
+import { WordsPerMinuteCalculator } from "../../libs/words_per_minute_calculator";
+import { MINUTE_AS_MILLISECONDS, SECOND_AS_MILLISECONDS } from "../../libs/constants";
 
-// suite("WordsPerMinuteCalculator Test Suite", () => {
-//   let repository: any;
-//   let calculator: any;
+suite("WordsPerMinuteCalculator Test Suite", () => {
+  let repository: KeystrokeRepository;
+  let calculator: WordsPerMinuteCalculator;
 
-//   setup(() => {
-//     repository = KeystrokeRepository.getInstance();
-//     calculator = new WordsPerMinuteCalculator(repository);
-//   });
+  setup(() => {
+    repository = KeystrokeRepository.getInstance();
+    calculator = new WordsPerMinuteCalculator(repository);
+  });
 
-//   teardown(() => {
-//     repository = null;
-//     calculator = null;
-//   });
+  teardown(() => {
+    repository.allKeystrokes = [];
+    repository = null as any;
+    calculator = null as any;
+  });
 
-//   test("GetAverageWordsPerMinute() returns 0 when no key is pressed", () => {
-//     const wpm = calculator.getAverageWordsPerMinute();
-//     assert.strictEqual(wpm, 0);
-//   });
+  suite("getAverageWordsPerMinute()", () => {
+    test("Returns 0 wpm when no key is pressed", () => {
+      const wpm = calculator.getAverageWordsPerMinute();
+      assert.strictEqual(wpm, 0);
+    });
 
-//   test("GetAverageWordsPerMinute() returns 60 when 5 keys are pressed (5 charactes are equal to 1 word)", () => {
-//     repository.addKeystrokeToAll("a");
-//     repository.addKeystrokeToAll("a");
-//     repository.addKeystrokeToAll("a");
-//     repository.addKeystrokeToAll("a");
-//     repository.addKeystrokeToAll("a");
+    test("Returns 0.2 wpm when only 1 key is pressed 1 minute (5 keys = 1 word)", () => {
+      const now = Date.now();
+      const oneMinuteBefore: number = now - MINUTE_AS_MILLISECONDS;
 
-//     const wpm = calculator.getAverageWordsPerMinute();
-//     assert.strictEqual(wpm, 60);
-//   });
+      repository.addKeystroke("a", oneMinuteBefore);
 
-//   test("GetAverageWordsPerMinute() returns 60 when 5 keys were pressed and at the second time without touching any further keys, it returns 30", () => {
-//     repository.addKeystrokeToAll("a");
-//     repository.addKeystrokeToAll("a");
-//     repository.addKeystrokeToAll("a");
-//     repository.addKeystrokeToAll("a");
-//     repository.addKeystrokeToAll("a");
+      const wpm = calculator.getAverageWordsPerMinute();
+      assert.strictEqual(wpm, 0.2);
+    });
 
-//     const wpm1 = calculator.getAverageWordsPerMinute();
-//     assert.strictEqual(wpm1, 60);
+    test("Returns 60 wpm when 300 keys are pressed in 1 minute (5 keys = 1 word)", () => {
+      const now = Date.now();
+      const oneMinuteBefore: number = now - MINUTE_AS_MILLISECONDS;
 
-//     const wpm2 = calculator.getAverageWordsPerMinute();
-//     assert.strictEqual(wpm2, 30);
-//   });
-// });
+      for (let i = 0; i < 300; i++) {
+        repository.addKeystroke("a", oneMinuteBefore);
+      }
+
+      const wpm = calculator.getAverageWordsPerMinute();
+      assert.strictEqual(wpm, 60);
+    });
+
+    test("Returns 60 wpm when 600 keys are pressed in 2 minutes (5 keys = 1 word)", () => {
+      const now = Date.now();
+      const twoMinutesBefore: number = now - 2 * MINUTE_AS_MILLISECONDS;
+
+      for (let i = 0; i < 600; i++) {
+        repository.addKeystroke("a", twoMinutesBefore);
+      }
+
+      const wpm = calculator.getAverageWordsPerMinute();
+      assert.strictEqual(Math.round(wpm), 60);
+    });
+
+    test("Returns 60 wpm when 450 keys are pressed in 1 minute and 30 seconds (5 keys = 1 word)", () => {
+      const now = Date.now();
+      const oneAndAHalfMinutesBefore: number = now - 1.5 * MINUTE_AS_MILLISECONDS;
+
+      for (let i = 0; i < 450; i++) {
+        repository.addKeystroke("a", oneAndAHalfMinutesBefore);
+      }
+
+      const wpm = calculator.getAverageWordsPerMinute();
+      assert.strictEqual(Math.round(wpm), 60);
+    });
+
+    test("Returns 60 wpm when 150 keys are pressed in 30 seconds (5 keys = 1 word)", () => {
+      const now = Date.now();
+      const thirtySecondsBefore: number = now - 0.5 * MINUTE_AS_MILLISECONDS;
+
+      for (let i = 0; i < 150; i++) {
+        repository.addKeystroke("a", thirtySecondsBefore);
+      }
+
+      const wpm = calculator.getAverageWordsPerMinute();
+      assert.strictEqual(Math.round(wpm), 60);
+    });
+  });
+});

@@ -1,4 +1,4 @@
-import { MINUTE_AS_MILLISECONDS, SECOND_AS_MILLISECONDS } from "./constants";
+import { MINUTE_AS_MILLISECONDS } from "./constants";
 import { Keystroke } from "./keystroke";
 import { KeystrokeRepository } from "./keystroke_repository";
 
@@ -11,12 +11,12 @@ export class WordsPerMinuteCalculator {
   }
 
   public getAverageWordsPerMinute(): number {
-    const timeInMillisecondsSinceLastKeystroke: number =
-      Date.now() - this._repository.getLastKeystroke().timestampInMilliseconds;
-    const elapsedMinutes: number =
-      this.getElapsedTimeInMinutes() +
-      timeInMillisecondsSinceLastKeystroke / MINUTE_AS_MILLISECONDS;
+    const elapsedMilliseconds: number = this.getAllElapsedTimeInMilliseconds();
+    if (elapsedMilliseconds === 0) {
+      return 0;
+    }
 
+    const elapsedMinutes: number = elapsedMilliseconds / MINUTE_AS_MILLISECONDS;
     const wpm: number =
       this.getWordCountFromKeystrokeCount(this._repository.allKeystrokeCount()) / elapsedMinutes;
 
@@ -28,20 +28,25 @@ export class WordsPerMinuteCalculator {
     return keyCount / AVERAGE_WORD_LENGTH;
   }
 
-  private getElapsedTimeInMinutes(): number {
-    let elapsedMinutes: number = 0;
+  private getAllElapsedTimeInMilliseconds(): number {
+    const firstKeystroke: Keystroke = this._repository.getFirstKeystroke();
+    const lastKeystroke: Keystroke = this._repository.getLastKeystroke();
 
-    let firstKeystrokeOfStartedMinute: Keystroke = this._repository.getFirstKeystroke();
-    for (const keystroke of this._repository.allKeystrokes.slice(1)) {
-      if (
-        keystroke.timestampInMilliseconds - firstKeystrokeOfStartedMinute.timestampInMilliseconds >
-        MINUTE_AS_MILLISECONDS
-      ) {
-        elapsedMinutes += 1;
-        firstKeystrokeOfStartedMinute = keystroke;
-      }
+    if (!firstKeystroke && !lastKeystroke) {
+      return 0;
     }
 
-    return elapsedMinutes;
+    const timeInMillisecondsSinceLastKeystroke: number =
+      Date.now() - lastKeystroke.timestampInMilliseconds;
+    if (firstKeystroke === lastKeystroke) {
+      return timeInMillisecondsSinceLastKeystroke;
+    }
+
+    const elapsedMilliseconds: number =
+      lastKeystroke.timestampInMilliseconds -
+      firstKeystroke.timestampInMilliseconds +
+      timeInMillisecondsSinceLastKeystroke;
+
+    return elapsedMilliseconds;
   }
 }
