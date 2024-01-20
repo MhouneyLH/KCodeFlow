@@ -22,22 +22,22 @@
 //   });
 
 //   test("GetAverageWordsPerMinute() returns 60 when 5 keys are pressed (5 charactes are equal to 1 word)", () => {
-//     repository.addPressedKeyToAll("a");
-//     repository.addPressedKeyToAll("a");
-//     repository.addPressedKeyToAll("a");
-//     repository.addPressedKeyToAll("a");
-//     repository.addPressedKeyToAll("a");
+//     repository.addKeystrokeToAll("a");
+//     repository.addKeystrokeToAll("a");
+//     repository.addKeystrokeToAll("a");
+//     repository.addKeystrokeToAll("a");
+//     repository.addKeystrokeToAll("a");
 
 //     const wpm = calculator.getAverageWordsPerMinute();
 //     assert.strictEqual(wpm, 60);
 //   });
 
 //   test("GetAverageWordsPerMinute() returns 60 when 5 keys were pressed and at the second time without touching any further keys, it returns 30", () => {
-//     repository.addPressedKeyToAll("a");
-//     repository.addPressedKeyToAll("a");
-//     repository.addPressedKeyToAll("a");
-//     repository.addPressedKeyToAll("a");
-//     repository.addPressedKeyToAll("a");
+//     repository.addKeystrokeToAll("a");
+//     repository.addKeystrokeToAll("a");
+//     repository.addKeystrokeToAll("a");
+//     repository.addKeystrokeToAll("a");
+//     repository.addKeystrokeToAll("a");
 
 //     const wpm1 = calculator.getAverageWordsPerMinute();
 //     assert.strictEqual(wpm1, 60);

@@ -90,6 +90,6 @@ function updateKeystrokes(event: vscode.TextDocumentChangeEvent): void {
     keystrokeCountStatusBar.update();
 
     const pressedKey: string = getPressedKey(event);
-    keystrokeRepository.addPressedKey(pressedKey, Date.now());
+    keystrokeRepository.addKeystroke(pressedKey, Date.now());
   }
 }

@@ -17,7 +17,7 @@
 //   });
 
 //   test("getKeystrokeCountAnalyticsMessage() returns the correct message", () => {
-//     repository.addPressedKeyToAll("a");
+//     repository.addKeystrokeToAll("a");
 //     const expectedPattern =
 //       /😊 (.*)! You collected so far 1 keystrokes in total. 1 of them this year, 1 this month, 1 this week, 1 today, 1 this hour and 1 this minute!/;
 
@@ -27,16 +27,16 @@
 //   });
 
 //   test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the correct message", () => {
-//     repository.addPressedKeyToAll("a");
-//     repository.addPressedKeyToAll("a");
-//     repository.addPressedKeyToAll("a");
-//     repository.addPressedKeyToAll("a");
-//     repository.addPressedKeyToAll("b");
-//     repository.addPressedKeyToAll("b");
-//     repository.addPressedKeyToAll("b");
-//     repository.addPressedKeyToAll("c");
-//     repository.addPressedKeyToAll("c");
-//     repository.addPressedKeyToAll("d");
+//     repository.addKeystrokeToAll("a");
+//     repository.addKeystrokeToAll("a");
+//     repository.addKeystrokeToAll("a");
+//     repository.addKeystrokeToAll("a");
+//     repository.addKeystrokeToAll("b");
+//     repository.addKeystrokeToAll("b");
+//     repository.addKeystrokeToAll("b");
+//     repository.addKeystrokeToAll("c");
+//     repository.addKeystrokeToAll("c");
+//     repository.addKeystrokeToAll("d");
 
 //     const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
 
@@ -44,7 +44,7 @@
 //   });
 
 //   test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the correct message when there is only one pressed key", () => {
-//     repository.addPressedKeyToAll("a");
+//     repository.addKeystrokeToAll("a");
 
 //     const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
 
@@ -52,9 +52,9 @@
 //   });
 
 //   test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the correct message when there are less than 3 pressed keys", () => {
-//     repository.addPressedKeyToAll("a");
-//     repository.addPressedKeyToAll("a");
-//     repository.addPressedKeyToAll("b");
+//     repository.addKeystrokeToAll("a");
+//     repository.addKeystrokeToAll("a");
+//     repository.addKeystrokeToAll("b");
 
 //     const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
 
@@ -68,7 +68,7 @@
 //   });
 
 //   test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the word 'Enter' when the key 'Enter' got pressed", () => {
-//     repository.addPressedKeyToAll("\r\n");
+//     repository.addKeystrokeToAll("\r\n");
 
 //     const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
 
@@ -76,7 +76,7 @@
 //   });
 
 //   test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the word 'Tab' when the key 'Tab' got pressed", () => {
-//     repository.addPressedKeyToAll("    ");
+//     repository.addKeystrokeToAll("    ");
 
 //     const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
 
@@ -84,7 +84,7 @@
 //   });
 
 //   test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the word 'Space' when the key 'Space' got pressed", () => {
-//     repository.addPressedKeyToAll(" ");
+//     repository.addKeystrokeToAll(" ");
 
 //     const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
 
@@ -92,7 +92,7 @@
 //   });
 
 //   test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the word 'Backspace' when the key 'Backspace' got pressed", () => {
-//     repository.addPressedKeyToAll("");
+//     repository.addKeystrokeToAll("");
 
 //     const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
 

@@ -27,12 +27,12 @@
 //     assert.strictEqual(statusBar["_statusBarItem"].text, `${KEYBOARD_ICON} 0`);
 //   });
 
-//   test("Update() should set the text of the status bar item to '5' after addPressedKeyToAll() got called 5 times", () => {
-//     repository.addPressedKeyToAll("a");
-//     repository.addPressedKeyToAll("a");
-//     repository.addPressedKeyToAll("a");
-//     repository.addPressedKeyToAll("a");
-//     repository.addPressedKeyToAll("a");
+//   test("Update() should set the text of the status bar item to '5' after addKeystrokeToAll() got called 5 times", () => {
+//     repository.addKeystrokeToAll("a");
+//     repository.addKeystrokeToAll("a");
+//     repository.addKeystrokeToAll("a");
+//     repository.addKeystrokeToAll("a");
+//     repository.addKeystrokeToAll("a");
 
 //     statusBar.update();
 
