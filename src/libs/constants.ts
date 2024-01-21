@@ -5,11 +5,6 @@ export const SECOND_ICON = "🥈";
 export const THIRD_ICON = "🥉";
 
 // time
-// todo: thinking about different time management solution
-export const SECOND_AS_MILLISECONDS = 1000;
-export const MINUTE_AS_MILLISECONDS = SECOND_AS_MILLISECONDS * 60;
-export const HOUR_AS_MILLISECONDS = MINUTE_AS_MILLISECONDS * 60;
-export const DAY_AS_MILLISECONDS = HOUR_AS_MILLISECONDS * 24;
-export const WEEK_AS_MILLISECONDS = DAY_AS_MILLISECONDS * 7;
-export const MONTH_AS_MILLISECONDS = DAY_AS_MILLISECONDS * 30;
-export const YEAR_AS_MILLISECONDS = MONTH_AS_MILLISECONDS * 12;
+export const SECOND_IN_MS = 1000;
+export const MINUTE_IN_MS = 60 * SECOND_IN_MS;
+export const AFK_TIME_IN_MS = 5 * SECOND_IN_MS;

@@ -11,12 +11,12 @@ export class KeystrokCountStatusBar {
     this._keystrokeRepository = keystrokeRepository;
     this._statusBarItem = statusBarItem;
 
-    this._statusBarItem.text = `${KEYBOARD_ICON} 0`;
+    this.update();
     this._statusBarItem.show();
   }
 
   public update(): void {
-    const totalCount: number = this._keystrokeRepository.total.count;
+    const totalCount: number = this._keystrokeRepository.allKeystrokeCount();
     this._statusBarItem.text = `${KEYBOARD_ICON} ${totalCount}`;
   }
 

@@ -1,9 +1,10 @@
 import * as assert from "assert";
 import { KeystrokeRepository } from "../../libs/keystroke_repository";
-import { resetKeystrokeRepository } from "../test_utils";
 import * as vscode from "vscode";
 import { KeystrokCountStatusBar } from "../../status_bar/keystroke_count_status_bar";
 import { KEYBOARD_ICON } from "../../libs/constants";
+import { Keystroke } from "../../libs/keystroke";
+import { TestUtils } from "../test_utils";
 
 suite("KeystrokeCountStatusBar Test Suite", () => {
   let repository: KeystrokeRepository;
@@ -17,24 +18,25 @@ suite("KeystrokeCountStatusBar Test Suite", () => {
   });
 
   teardown(() => {
-    resetKeystrokeRepository(repository);
+    repository.allKeystrokes = [];
+    repository = null as any;
+    statusBarItem = null as any;
+    statusBar = null as any;
   });
 
-  test("Update() sets the text of the status bar item properly", () => {
-    statusBar.update();
+  suite("update()", () => {
+    test(`For 0 keys pressed the status bar text is set to '${KEYBOARD_ICON} 0'`, () => {
+      statusBar.update();
 
-    assert.strictEqual(statusBar["_statusBarItem"].text, `${KEYBOARD_ICON} 0`);
-  });
+      assert.strictEqual(statusBar["_statusBarItem"].text, `${KEYBOARD_ICON} 0`);
+    });
 
-  test("Update() should set the text of the status bar item to '5' after addPressedKeyToAll() got called 5 times", () => {
-    repository.addPressedKeyToAll("a");
-    repository.addPressedKeyToAll("a");
-    repository.addPressedKeyToAll("a");
-    repository.addPressedKeyToAll("a");
-    repository.addPressedKeyToAll("a");
+    test(`For 5 keys pressed the status bar text is set to '${KEYBOARD_ICON} 5'`, () => {
+      TestUtils.generateKeystrokesWithIncreasingTimestamps(repository, new Keystroke("a", 0), 5);
 
-    statusBar.update();
+      statusBar.update();
 
-    assert.strictEqual(statusBar["_statusBarItem"].text, `${KEYBOARD_ICON} 5`);
+      assert.strictEqual(statusBar["_statusBarItem"].text, `${KEYBOARD_ICON} 5`);
+    });
   });
 });

@@ -1,9 +1,11 @@
 import * as assert from "assert";
 import { KeystrokeRepository } from "../../libs/keystroke_repository";
 import { WordsPerMinuteCalculator } from "../../libs/words_per_minute_calculator";
-import { resetKeystrokeRepository } from "../test_utils";
 import { WordsPerMinuteStatusBar } from "../../status_bar/words_per_minute_status_bar";
 import * as vscode from "vscode";
+import { MINUTE_IN_MS } from "../../libs/constants";
+import { Keystroke } from "../../libs/keystroke";
+import { TestUtils } from "../test_utils";
 
 suite("WordsPerMinuteStatusBar Test Suite", () => {
   let repository: KeystrokeRepository;
@@ -19,24 +21,33 @@ suite("WordsPerMinuteStatusBar Test Suite", () => {
   });
 
   teardown(() => {
-    resetKeystrokeRepository(repository);
+    repository.allKeystrokes = [];
+    repository = null as any;
+    calculator = null as any;
+    statusBarItem = null as any;
+    statusBar = null as any;
   });
 
-  test("Update() sets the text of the status bar item properly", () => {
-    statusBar.update();
+  suite("update()", () => {
+    test("For 0 wpm the status bar text is set to '0.0 wpm'", () => {
+      statusBar.update();
 
-    assert.strictEqual(statusBar["_statusBarItem"].text, "0.0 wpm");
-  });
+      assert.strictEqual(statusBar["_statusBarItem"].text, "0.0 wpm");
+    });
 
-  test("Update() should set the text of the status bar item to '60.0 wpm' after addPressedKeyToAll() got called 5 times", () => {
-    repository.addPressedKeyToAll("a");
-    repository.addPressedKeyToAll("a");
-    repository.addPressedKeyToAll("a");
-    repository.addPressedKeyToAll("a");
-    repository.addPressedKeyToAll("a");
+    test("For 60 wpm the status bar text is set to '60.0 wpm'", () => {
+      const now = Date.now();
+      const oneMinuteBefore: number = now - MINUTE_IN_MS;
 
-    statusBar.update();
+      TestUtils.generateKeystrokesWithIncreasingTimestamps(
+        repository,
+        new Keystroke("a", oneMinuteBefore),
+        300
+      );
 
-    assert.strictEqual(statusBar["_statusBarItem"].text, "60.0 wpm");
+      statusBar.update();
+
+      assert.strictEqual(statusBar["_statusBarItem"].text, "60.0 wpm");
+    });
   });
 });

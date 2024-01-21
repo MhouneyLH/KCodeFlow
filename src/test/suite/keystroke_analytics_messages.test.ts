@@ -1,9 +1,8 @@
 import * as assert from "assert";
 import { KeystrokeRepository } from "../../libs/keystroke_repository";
-import { resetKeystrokeRepository } from "../test_utils";
 import {
   getKeystrokeCountAnalyticsMessage,
-  getThreeMostOftenpressedKeysInDescendingOrderMessage,
+  getThreeMostOftenUsedKeystrokesOfAlltimeMessage,
 } from "../../libs/keystroke_analytics_messages";
 
 suite("KeystrokeAnalyticsMessages Test Suite", () => {
@@ -14,89 +13,66 @@ suite("KeystrokeAnalyticsMessages Test Suite", () => {
   });
 
   teardown(() => {
-    resetKeystrokeRepository(repository);
+    repository.allKeystrokes = [];
+    repository = null as any;
   });
 
-  test("getKeystrokeCountAnalyticsMessage() returns the correct message", () => {
-    repository.addPressedKeyToAll("a");
-    const expectedPattern =
-      /😊 (.*)! You collected so far 1 keystrokes in total. 1 of them this year, 1 this month, 1 this week, 1 today, 1 this hour and 1 this minute!/;
+  suite("getKeystrokeCountAnalyticsMessage()", () => {
+    test("Returns the correct message, when added keystroke right now", () => {
+      repository.addKeystroke("a", Date.now());
 
-    const message: string = getKeystrokeCountAnalyticsMessage();
+      const expected =
+        /😊 (.*)! You collected so far 1 keystrokes in total. 1 of them this year, 1 this month, 1 this week, 1 today, 1 this hour and 1 this minute!/;
+      const actual: string = getKeystrokeCountAnalyticsMessage();
 
-    assert.match(message, expectedPattern);
+      assert.match(actual, expected);
+    });
   });
 
-  test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the correct message", () => {
-    repository.addPressedKeyToAll("a");
-    repository.addPressedKeyToAll("a");
-    repository.addPressedKeyToAll("a");
-    repository.addPressedKeyToAll("a");
-    repository.addPressedKeyToAll("b");
-    repository.addPressedKeyToAll("b");
-    repository.addPressedKeyToAll("b");
-    repository.addPressedKeyToAll("c");
-    repository.addPressedKeyToAll("c");
-    repository.addPressedKeyToAll("d");
+  suite("getKeystrokeCountAnalyticsMessage()", () => {
+    test("Returns the correct message when I add at least 3 unique keystrokes", () => {
+      repository.addKeystroke("a", Date.now());
+      repository.addKeystroke("a", Date.now());
+      repository.addKeystroke("a", Date.now());
+      repository.addKeystroke("a", Date.now());
+      repository.addKeystroke("b", Date.now());
+      repository.addKeystroke("b", Date.now());
+      repository.addKeystroke("b", Date.now());
+      repository.addKeystroke("c", Date.now());
+      repository.addKeystroke("c", Date.now());
+      repository.addKeystroke("d", Date.now());
 
-    const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
+      const expected: string = "You pressed 🥇 'a' 4x, 🥈 'b' 3x, 🥉 'c' 2x!";
+      const actual: string = getThreeMostOftenUsedKeystrokesOfAlltimeMessage();
 
-    assert.strictEqual(message, `You pressed 🥇 'a' 4x, 🥈 'b' 3x, 🥉 'c' 2x!`);
-  });
+      assert.strictEqual(actual, expected);
+    });
 
-  test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the correct message when there is only one pressed key", () => {
-    repository.addPressedKeyToAll("a");
+    test("Returns the correct message when there is only one pressed key", () => {
+      repository.addKeystroke("a", Date.now());
 
-    const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
+      const expected: string = "You pressed 🥇 'a' 1x!";
+      const actual: string = getThreeMostOftenUsedKeystrokesOfAlltimeMessage();
 
-    assert.strictEqual(message, `You pressed 🥇 'a' 1x!`);
-  });
+      assert.strictEqual(actual, expected);
+    });
 
-  test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the correct message when there are less than 3 pressed keys", () => {
-    repository.addPressedKeyToAll("a");
-    repository.addPressedKeyToAll("a");
-    repository.addPressedKeyToAll("b");
+    test("Returns the correct message when there are less than 3 pressed keys", () => {
+      repository.addKeystroke("a", Date.now());
+      repository.addKeystroke("a", Date.now());
+      repository.addKeystroke("b", Date.now());
 
-    const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
+      const expected: string = "You pressed 🥇 'a' 2x, 🥈 'b' 1x!";
+      const actual: string = getThreeMostOftenUsedKeystrokesOfAlltimeMessage();
 
-    assert.strictEqual(message, `You pressed 🥇 'a' 2x, 🥈 'b' 1x!`);
-  });
+      assert.strictEqual(actual, expected);
+    });
 
-  test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the correct message when there are no pressed keys", () => {
-    const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
+    test("Returns the correct message when there are no pressed keys", () => {
+      const expected: string = "You pressed no keys so far!";
+      const actual: string = getThreeMostOftenUsedKeystrokesOfAlltimeMessage();
 
-    assert.strictEqual(message, "You pressed no keys so far!");
-  });
-
-  test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the word 'Enter' when the key 'Enter' got pressed", () => {
-    repository.addPressedKeyToAll("\r\n");
-
-    const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
-
-    assert.strictEqual(message, `You pressed 🥇 'Enter' 1x!`);
-  });
-
-  test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the word 'Tab' when the key 'Tab' got pressed", () => {
-    repository.addPressedKeyToAll("    ");
-
-    const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
-
-    assert.strictEqual(message, `You pressed 🥇 'Tab' 1x!`);
-  });
-
-  test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the word 'Space' when the key 'Space' got pressed", () => {
-    repository.addPressedKeyToAll(" ");
-
-    const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
-
-    assert.strictEqual(message, `You pressed 🥇 'Space' 1x!`);
-  });
-
-  test("getThreeMostOftenpressedKeysInDescendingOrderMessage() returns the word 'Backspace' when the key 'Backspace' got pressed", () => {
-    repository.addPressedKeyToAll("");
-
-    const message: string = getThreeMostOftenpressedKeysInDescendingOrderMessage();
-
-    assert.strictEqual(message, `You pressed 🥇 'Backspace' 1x!`);
+      assert.strictEqual(actual, expected);
+    });
   });
 });
