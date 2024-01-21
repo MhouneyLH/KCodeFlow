@@ -1,6 +1,9 @@
 name: Release
 
-on: push
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -11,12 +14,12 @@ jobs:
         uses: actions/checkout@v2
       - name: Setup Node.js
         uses: actions/setup-node@v2
+      - name: Setup vsce
+        run: npm i -g @vscode/vsce
       - name: Install dependencies
         run: npm ci
       - name: Run tests
         run: npm test
-      - name: Setup vsce
-        run: npm i -g @vscode/vsce
       - name: Package extension
         run: vsce package
       - name: Upload VSIC artifact
