@@ -13,30 +13,34 @@
 
 ## 📑 About the project
 
-- tracking your keystrokes, while coding your projects
-- analytics, about which keys were pressed the most
-- showing your current WPM, that updates every second
+The project is a VSCode extension, that tracks your keystrokes, while coding. Do you really need it? Probably not. Is it fun to have? Definitely! 🤓 You can download it on the [VSCode-Marketplace](https://marketplace.visualstudio.com/items?itemName=mhouney.kcodeflow). Happy typing!
+
 <p align="right">(<a href="#readme_top">back to top</a>)</p>
+
+## ⚙️ Commands
+
+- `KCodeFlow: Show Count-Analytics` - Shows the analytics of your keystrokes
+- `KCodeFlow: Show most often pressed keys` - Shows the most often pressed keys
 
 ## 🔥 Features
 
-### 👍🏻 Keep track of your total keystrokes and wpm
+### 📊 Keep track of your total keystrokes and wpm
 
+![](./assets/img/showcase_wpm_and_live_count.gif)
 ![](./docs/keystrokes_and_wpm.gif)
 
-### 👍🏻 Show analytics
+### 📊 Show analytics
 
-![](./docs/commands_in_palette.png)
-![](./docs/keystrokes_analytics.gif)
-![](./docs/pressed_keys_analytics.gif)
+![](./assets/img/showcase_count_analytics.gif.gif)
 
-<p align="right">(<a href="#readme_top">back to top</a>)</p>
-
-## ☁ Download
-
-Visual Studio Marketplace: @todo
+![](./assets/img/showcase_most_often_pressed_keys.gif.gif)
 
 <p align="right">(<a href="#readme_top">back to top</a>)</p>
+
+## 🐛 Known Issues
+
+- Sometimes a test randomly fails. This is probably due to minimal timing changes while testing the wpm calculations.
+- When selecting something from IntelliSense, then the selected text is counted as the keystroke.
 
 ## 🔢 Getting started
 
@@ -48,7 +52,12 @@ Visual Studio Marketplace: @todo
    ```sh
    npm install
    ```
-   <p align="right">(<a href="#readme_top">back to top</a>)</p>
+3. Run tests. (Optional)
+   ```sh
+   npm run test
+   ```
+
+<p align="right">(<a href="#readme_top">back to top</a>)</p>
 
 ## 👨🏻‍💼 Contributing
 

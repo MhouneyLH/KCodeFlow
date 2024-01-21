@@ -3,11 +3,12 @@
   "displayName": "KCodeFlow",
   "publisher": "mhouney",
   "description": "Elevate your coding with KCodeFlow – track words per minute, count keystrokes, and gain valuable insights. Optimize your coding rhythm effortlessly. Download now for a more productive coding experience!",
+  "icon": "./assets/img/extension_icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/MhouneyLH/KCodeFlow.git"
   },
-  "version": "0.0.1",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.71.0"
   },
@@ -42,7 +43,6 @@
     "@types/glob": "^7.2.0",
     "@types/mocha": "^9.1.1",
     "@types/node": "16.x",
-    "@types/sinon": "^17.0.2",
     "@types/vscode": "^1.71.0",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
