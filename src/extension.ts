@@ -13,8 +13,8 @@ import { KeystrokCountStatusBar } from "./status_bar/keystroke_count_status_bar"
 import { ConfigurationLoader, defaultConfigurationFilePath } from "./libs/configuration_loader";
 import { KeystrokeRepository } from "./libs/keystroke_repository";
 
-const keystrokeCountAnalyticsCommandId = "keystrokemanager.keystrokeCountAnalytics";
-const mostOftenPressedKeysCommandId = "keystrokemanager.mostOftenPressedKeys";
+const keystrokeCountAnalyticsCommandId = "KCodeFlow.keystrokeCountAnalytics";
+const mostOftenPressedKeysCommandId = "KCodeFlow.mostOftenPressedKeys";
 
 const configurationLoader = ConfigurationLoader.getInstance(defaultConfigurationFilePath);
 

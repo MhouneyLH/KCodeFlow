@@ -1,7 +1,7 @@
 {
-  "name": "keystrokemanager",
-  "displayName": "KeystrokeManager",
-  "description": "Constantly checking keystrokes while programming.",
+  "name": "k_code_flow",
+  "displayName": "KCodeFlow",
+  "description": "Elevate your coding with KCodeFlow – track words per minute, count keystrokes, and gain valuable insights. Optimize your coding rhythm effortlessly. Download now for a more productive coding experience!",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.71.0"
@@ -16,12 +16,12 @@
   "contributes": {
     "commands": [
       {
-        "command": "keystrokemanager.keystrokeCountAnalytics",
-        "title": "Keystrokes: Show Count-Analytics"
+        "command": "KCodeFlow.keystrokeCountAnalytics",
+        "title": "KCodeFlow: Show Count-Analytics"
       },
       {
-        "command": "keystrokemanager.mostOftenPressedKeys",
-        "title": "Keystrokes: Show most often pressed keys"
+        "command": "KCodeFlow.mostOftenPressedKeys",
+        "title": "KCodeFlow: Show most often pressed keys"
       }
     ]
   },
