@@ -10,18 +10,24 @@ import {
 import { WordsPerMinuteCalculator } from "./libs/words_per_minute_calculator";
 import { WordsPerMinuteStatusBar } from "./status_bar/words_per_minute_status_bar";
 import { KeystrokCountStatusBar } from "./status_bar/keystroke_count_status_bar";
-import { ConfigurationLoader } from "./libs/configuration_loader";
+import { ConfigurationLoader, defaultConfigurationFilePath } from "./libs/configuration_loader";
+import { KeystrokeRepository } from "./libs/keystroke_repository";
 
 const keystrokeCountAnalyticsCommandId = "keystrokemanager.keystrokeCountAnalytics";
 const mostOftenPressedKeysCommandId = "keystrokemanager.mostOftenPressedKeys";
 
-const configurationLoader = ConfigurationLoader.getInstance(keystrokeRepository);
+const configurationLoader = ConfigurationLoader.getInstance(defaultConfigurationFilePath);
 
 let keystrokeCountStatusBar: KeystrokCountStatusBar;
 let wpmStatusBar: WordsPerMinuteStatusBar;
 
 export function activate({ subscriptions }: vscode.ExtensionContext): void {
-  configurationLoader.load();
+  const configurationJson: any = configurationLoader.load();
+  if (configurationJson !== null) {
+    keystrokeRepository.allKeystrokes = KeystrokeRepository.allKeystrokesFromJsonArray(
+      configurationJson["keystrokes"]
+    );
+  }
 
   createCommands(subscriptions);
   createStatusBarItems(subscriptions);
@@ -29,7 +35,12 @@ export function activate({ subscriptions }: vscode.ExtensionContext): void {
 }
 
 export function deactivate(): void {
-  configurationLoader.save();
+  const keystrokesAsJsonArray: any = keystrokeRepository.allKeystrokesToJsonArray();
+  const jsonObject: any = {
+    keystrokes: keystrokesAsJsonArray,
+  };
+
+  configurationLoader.save(jsonObject);
 }
 
 function createCommands(subscriptions: any): void {

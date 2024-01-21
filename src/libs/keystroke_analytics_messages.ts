@@ -1,5 +1,4 @@
 import { FIRST_ICON, SECOND_ICON, THIRD_ICON } from "./constants";
-import { Keystroke } from "./keystroke";
 import { KeystrokeRepository } from "./keystroke_repository";
 
 export const keystrokeRepository = KeystrokeRepository.getInstance();

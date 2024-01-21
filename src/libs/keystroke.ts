@@ -20,7 +20,6 @@ export class Keystroke {
     return this._timestampInMilliseconds;
   }
 
-  // todo: testing
   public toJsonObject(): any {
     const jsonObject: any = {
       key: this._key,
@@ -30,7 +29,6 @@ export class Keystroke {
     return jsonObject;
   }
 
-  // todo: testing
   public static fromJsonObject(jsonObject: any): Keystroke {
     const key: string = jsonObject["key"];
     const timestamp: number = jsonObject["timestampInMilliseconds"];

@@ -104,4 +104,41 @@ suite("KeystrokeRepository Test Suite", () => {
 
     assert.deepStrictEqual(actual, expected);
   });
+
+  test("allKeystrokesToJsonArray() returns the correct JSON array", () => {
+    repository.addKeystroke("a", 0);
+    repository.addKeystroke("b", 0);
+
+    const expected = [
+      {
+        key: "a",
+        timestampInMilliseconds: 0,
+      },
+      {
+        key: "b",
+        timestampInMilliseconds: 0,
+      },
+    ];
+    const actual = repository.allKeystrokesToJsonArray();
+
+    assert.deepStrictEqual(actual, expected);
+  });
+
+  test("allKeystrokesFromJsonArray() returns the correct Keystroke array", () => {
+    const json = [
+      {
+        key: "a",
+        timestampInMilliseconds: 0,
+      },
+      {
+        key: "b",
+        timestampInMilliseconds: 0,
+      },
+    ];
+
+    const expected = [new Keystroke("a", 0), new Keystroke("b", 0)];
+    const actual = KeystrokeRepository.allKeystrokesFromJsonArray(json);
+
+    assert.deepStrictEqual(actual, expected);
+  });
 });

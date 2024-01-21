@@ -1,61 +1,51 @@
 import * as vscode from "vscode";
 import * as fs from "fs";
-import { KeystrokeRepository } from "./keystroke_repository";
-import { Keystroke } from "./keystroke";
+import path = require("path");
+
+export const defaultConfigurationFilePath = path.join(__dirname, "keystroke-manager-config.json");
+
 export class ConfigurationLoader {
   private static _instance: ConfigurationLoader;
+  private _filePath: string;
 
-  private _keystrokeRepository: KeystrokeRepository;
-
-  private static readonly configSection = "keystrokeManager";
-  private static readonly defaultConfigurationFileName = "keystrokeManagerConfig.json";
-
-  // todo: testing
-  public static getInstance(keystrokeRepository: KeystrokeRepository): ConfigurationLoader {
+  public static getInstance(filePath: string): ConfigurationLoader {
     if (!ConfigurationLoader._instance) {
-      ConfigurationLoader._instance = new ConfigurationLoader(keystrokeRepository);
+      ConfigurationLoader._instance = new ConfigurationLoader(filePath);
     }
 
     return ConfigurationLoader._instance;
   }
 
-  private constructor(keystrokeRepository: KeystrokeRepository) {
-    this._keystrokeRepository = keystrokeRepository;
+  private constructor(filePath: string) {
+    this._filePath = filePath;
   }
 
-  // todo: testing
-  public save(): void {
-    const jsonObject: any = this.getKeystrokesAsJsonArray();
-    const jsonObjectAsString: string = JSON.stringify(jsonObject, null, 2);
-    const configurationFilePath: string = this.getConfigurationFilePath();
+  public save(jsonObject: any): void {
+    const spazeSize = 2;
+    const jsonObjectAsString: string = JSON.stringify(jsonObject, null, spazeSize);
 
     try {
-      fs.writeFileSync(configurationFilePath, jsonObjectAsString, "utf8");
+      fs.writeFileSync(this._filePath, jsonObjectAsString, "utf8");
     } catch (error: any) {
       vscode.window.showErrorMessage(`Error saving settings: ${error.message}`);
     }
   }
 
-  // todo: testing
-  public load(): void {
-    const configurationFilePath: string = this.getConfigurationFilePath();
-
+  public load(): any {
     try {
-      const data = fs.readFileSync(configurationFilePath, "utf8");
+      const data = fs.readFileSync(this._filePath, "utf8");
       const jsonObject = JSON.parse(data);
-      this.keystrokesFromJsonArray(jsonObject);
+      return jsonObject;
     } catch (error: any) {
       if (error.code === "ENOENT") {
-        console.log(`File not found! Creating: ${configurationFilePath}`);
-        this.createDefaultConfigFile(configurationFilePath);
+        console.log(`File not found! Creating: ${this._filePath}`);
+        this.createDefaultConfigFile(this._filePath);
+        return null;
       } else {
         vscode.window.showErrorMessage(`Error loading settings: ${error.message}`);
+        return null;
       }
     }
-  }
-
-  private getExtensionConfiguration(): vscode.WorkspaceConfiguration {
-    return vscode.workspace.getConfiguration(ConfigurationLoader.configSection);
   }
 
   private createDefaultConfigFile(filePath: string): void {
@@ -64,31 +54,5 @@ export class ConfigurationLoader {
     } catch (error: any) {
       vscode.window.showErrorMessage(`Error creating configuration file: ${error.message}`);
     }
-  }
-
-  private getConfigurationFilePath(): string {
-    const configuration = this.getExtensionConfiguration();
-    let filePath = __dirname + "\\..\\";
-    filePath +=
-      configuration.get<string>("configurationFileName") ??
-      ConfigurationLoader.defaultConfigurationFileName;
-
-    return filePath;
-  }
-
-  private keystrokesFromJsonArray(jsonObject: any): void {
-    const keystrokesAsJsonObjects: any[] = jsonObject["keystrokes"];
-    const keystrokes: Keystroke[] =
-      KeystrokeRepository.allKeystrokesFromJsonArray(keystrokesAsJsonObjects);
-
-    this._keystrokeRepository.allKeystrokes = keystrokes;
-  }
-
-  private getKeystrokesAsJsonArray(): any {
-    const jsonObject: any = {
-      keystrokes: this._keystrokeRepository.allKeystrokesToJsonArray(),
-    };
-
-    return jsonObject;
   }
 }

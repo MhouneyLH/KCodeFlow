@@ -92,13 +92,13 @@ export class KeystrokeRepository {
   }
 
   public allKeystrokesToJsonArray(): any[] {
-    const jsonArray: any[] = [];
+    const keystrokesAsJson: any[] = [];
 
     for (const keystroke of this._allKeystrokes) {
-      jsonArray.push(keystroke.toJsonObject());
+      keystrokesAsJson.push(keystroke.toJsonObject());
     }
 
-    return jsonArray;
+    return keystrokesAsJson;
   }
 
   public static allKeystrokesFromJsonArray(jsonArray: any[]): Keystroke[] {

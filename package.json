@@ -47,6 +47,7 @@
   "devDependencies": {
     "@types/glob": "^7.2.0",
     "@types/mocha": "^9.1.1",
+    "@types/mock-fs": "^4.13.4",
     "@types/node": "16.x",
     "@types/sinon": "^17.0.2",
     "@types/vscode": "^1.71.0",
