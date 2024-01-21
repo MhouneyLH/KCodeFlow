@@ -3,15 +3,20 @@ import * as path from "path";
 
 import { Keystroke } from "../libs/keystroke";
 import { KeystrokeRepository } from "../libs/keystroke_repository";
+import { MINUTE_AS_MILLISECONDS } from "../libs/constants";
 
 export class TestUtils {
-  public static generateIdenticalKeystrokes(
+  public static generateKeystrokesWithIncreasingTimestamps(
     repository: KeystrokeRepository,
     keystroke: Keystroke,
-    count: number
+    count: number,
+    fullTimeInMilliseconds: number = MINUTE_AS_MILLISECONDS
   ): void {
+    let timeIterator = keystroke.timestampInMilliseconds;
+
     for (let i = 0; i < count; i++) {
-      repository.addKeystroke(keystroke.key, keystroke.timestampInMilliseconds);
+      repository.addKeystroke(keystroke.key, timeIterator);
+      timeIterator += fullTimeInMilliseconds / count;
     }
   }
 

@@ -41,7 +41,11 @@ suite("WordsPerMinuteCalculator Test Suite", () => {
       const now = Date.now();
       const oneMinuteBefore: number = now - MINUTE_AS_MILLISECONDS;
 
-      TestUtils.generateIdenticalKeystrokes(repository, new Keystroke("a", oneMinuteBefore), 300);
+      TestUtils.generateKeystrokesWithIncreasingTimestamps(
+        repository,
+        new Keystroke("a", oneMinuteBefore),
+        300
+      );
 
       const wpm = calculator.getAverageWordsPerMinute();
       assert.strictEqual(Math.round(wpm), 60);
@@ -51,7 +55,12 @@ suite("WordsPerMinuteCalculator Test Suite", () => {
       const now = Date.now();
       const twoMinutesBefore: number = now - 2 * MINUTE_AS_MILLISECONDS;
 
-      TestUtils.generateIdenticalKeystrokes(repository, new Keystroke("a", twoMinutesBefore), 600);
+      TestUtils.generateKeystrokesWithIncreasingTimestamps(
+        repository,
+        new Keystroke("a", twoMinutesBefore),
+        600,
+        2 * MINUTE_AS_MILLISECONDS
+      );
 
       const wpm = calculator.getAverageWordsPerMinute();
       assert.strictEqual(Math.round(wpm), 60);
@@ -61,10 +70,11 @@ suite("WordsPerMinuteCalculator Test Suite", () => {
       const now = Date.now();
       const oneAndAHalfMinutesBefore: number = now - 1.5 * MINUTE_AS_MILLISECONDS;
 
-      TestUtils.generateIdenticalKeystrokes(
+      TestUtils.generateKeystrokesWithIncreasingTimestamps(
         repository,
         new Keystroke("a", oneAndAHalfMinutesBefore),
-        450
+        450,
+        1.5 * MINUTE_AS_MILLISECONDS
       );
 
       const wpm = calculator.getAverageWordsPerMinute();
@@ -75,10 +85,11 @@ suite("WordsPerMinuteCalculator Test Suite", () => {
       const now = Date.now();
       const thirtySecondsBefore: number = now - 0.5 * MINUTE_AS_MILLISECONDS;
 
-      TestUtils.generateIdenticalKeystrokes(
+      TestUtils.generateKeystrokesWithIncreasingTimestamps(
         repository,
         new Keystroke("a", thirtySecondsBefore),
-        150
+        150,
+        0.5 * MINUTE_AS_MILLISECONDS
       );
 
       const wpm = calculator.getAverageWordsPerMinute();

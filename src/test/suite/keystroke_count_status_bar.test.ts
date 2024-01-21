@@ -32,7 +32,7 @@ suite("KeystrokeCountStatusBar Test Suite", () => {
     });
 
     test(`For 5 keys pressed the status bar text is set to '${KEYBOARD_ICON} 5'`, () => {
-      TestUtils.generateIdenticalKeystrokes(repository, new Keystroke("a", 0), 5);
+      TestUtils.generateKeystrokesWithIncreasingTimestamps(repository, new Keystroke("a", 0), 5);
 
       statusBar.update();
 

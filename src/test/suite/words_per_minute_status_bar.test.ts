@@ -39,7 +39,11 @@ suite("WordsPerMinuteStatusBar Test Suite", () => {
       const now = Date.now();
       const oneMinuteBefore: number = now - MINUTE_AS_MILLISECONDS;
 
-      TestUtils.generateIdenticalKeystrokes(repository, new Keystroke("a", oneMinuteBefore), 300);
+      TestUtils.generateKeystrokesWithIncreasingTimestamps(
+        repository,
+        new Keystroke("a", oneMinuteBefore),
+        300
+      );
 
       statusBar.update();
 
