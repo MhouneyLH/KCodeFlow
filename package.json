@@ -1,6 +1,7 @@
 {
   "name": "kcodeflow",
   "displayName": "KCodeFlow",
+  "publisher": "mhouney",
   "description": "Elevate your coding with KCodeFlow – track words per minute, count keystrokes, and gain valuable insights. Optimize your coding rhythm effortlessly. Download now for a more productive coding experience!",
   "repository": {
     "type": "git",
