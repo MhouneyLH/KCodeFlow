@@ -3,7 +3,7 @@ import { KeystrokeRepository } from "../../libs/keystroke_repository";
 import { WordsPerMinuteCalculator } from "../../libs/words_per_minute_calculator";
 import { WordsPerMinuteStatusBar } from "../../status_bar/words_per_minute_status_bar";
 import * as vscode from "vscode";
-import { MINUTE_AS_MILLISECONDS } from "../../libs/constants";
+import { MINUTE_IN_MS } from "../../libs/constants";
 import { Keystroke } from "../../libs/keystroke";
 import { TestUtils } from "../test_utils";
 
@@ -37,7 +37,7 @@ suite("WordsPerMinuteStatusBar Test Suite", () => {
 
     test("For 60 wpm the status bar text is set to '60.0 wpm'", () => {
       const now = Date.now();
-      const oneMinuteBefore: number = now - MINUTE_AS_MILLISECONDS;
+      const oneMinuteBefore: number = now - MINUTE_IN_MS;
 
       TestUtils.generateKeystrokesWithIncreasingTimestamps(
         repository,

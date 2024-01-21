@@ -40,7 +40,7 @@ suite("Keystroke Test Suite", () => {
       const jsonObject = keystroke.toJsonObject();
 
       assert.strictEqual(jsonObject["key"], "a");
-      assert.strictEqual(jsonObject["timestampInMilliseconds"], 0);
+      assert.strictEqual(jsonObject["timestampInMs"], 0);
     });
   });
 
@@ -48,12 +48,12 @@ suite("Keystroke Test Suite", () => {
     test("jsonObject with key 'a' and timestamp '0' returns the correct ts-object", () => {
       const jsonObject = {
         key: "a",
-        timestampInMilliseconds: 0,
+        timestampInMs: 0,
       };
       const keystroke = Keystroke.fromJsonObject(jsonObject);
 
       assert.strictEqual(keystroke.key, "a");
-      assert.strictEqual(keystroke.timestampInMilliseconds, 0);
+      assert.strictEqual(keystroke.timestampInMs, 0);
     });
   });
 });

@@ -5,25 +5,25 @@ export const SPACE_CHARACTER: string = " ";
 
 export class Keystroke {
   private _key: string;
-  private _timestampInMilliseconds: number;
+  private _timestampInMs: number;
 
-  public constructor(key: string, timestampInMilliseconds: number) {
+  public constructor(key: string, timestampInMs: number) {
     this._key = this.getCorrectKeyLabel(key);
-    this._timestampInMilliseconds = timestampInMilliseconds;
+    this._timestampInMs = timestampInMs;
   }
 
   public get key(): string {
     return this._key;
   }
 
-  public get timestampInMilliseconds(): number {
-    return this._timestampInMilliseconds;
+  public get timestampInMs(): number {
+    return this._timestampInMs;
   }
 
   public toJsonObject(): any {
     const jsonObject: any = {
       key: this._key,
-      timestampInMilliseconds: this._timestampInMilliseconds,
+      timestampInMs: this._timestampInMs,
     };
 
     return jsonObject;
@@ -31,7 +31,7 @@ export class Keystroke {
 
   public static fromJsonObject(jsonObject: any): Keystroke {
     const key: string = jsonObject["key"];
-    const timestamp: number = jsonObject["timestampInMilliseconds"];
+    const timestamp: number = jsonObject["timestampInMs"];
 
     return new Keystroke(key, timestamp);
   }

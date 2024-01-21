@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 
-import { SECOND_AS_MILLISECONDS } from "./libs/constants";
+import { SECOND_IN_MS } from "./libs/constants";
 import { getPressedKey, isValidChangedContent } from "./libs/utils";
 import {
   keystrokeRepository,
@@ -93,7 +93,7 @@ function createStatusBarItems(subscriptions: any): void {
 
   setInterval(() => {
     wpmStatusBar.update();
-  }, SECOND_AS_MILLISECONDS);
+  }, SECOND_IN_MS);
 }
 
 function updateKeystrokes(event: vscode.TextDocumentChangeEvent): void {

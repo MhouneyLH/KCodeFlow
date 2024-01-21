@@ -112,11 +112,11 @@ suite("KeystrokeRepository Test Suite", () => {
     const expected = [
       {
         key: "a",
-        timestampInMilliseconds: 0,
+        timestampInMs: 0,
       },
       {
         key: "b",
-        timestampInMilliseconds: 0,
+        timestampInMs: 0,
       },
     ];
     const actual = repository.allKeystrokesToJsonArray();
@@ -128,11 +128,11 @@ suite("KeystrokeRepository Test Suite", () => {
     const json = [
       {
         key: "a",
-        timestampInMilliseconds: 0,
+        timestampInMs: 0,
       },
       {
         key: "b",
-        timestampInMilliseconds: 0,
+        timestampInMs: 0,
       },
     ];
 

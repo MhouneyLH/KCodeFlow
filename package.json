@@ -23,17 +23,6 @@
         "command": "keystrokemanager.mostOftenPressedKeys",
         "title": "Keystrokes: Show most often pressed keys"
       }
-    ],
-    "configuration": [
-      {
-        "title": "KeystrokeManager",
-        "properties": {
-          "keystrokeManager.configurationFileName": {
-            "type": "string",
-            "default": "keystrokeManagerConfig.json"
-          }
-        }
-      }
     ]
   },
   "scripts": {

@@ -3,11 +3,11 @@
     [
         {
             "key": "a",
-            "timestampInMilliseconds": 0
+            "timestampInMs": 0
         },
         {
             "key": "b",
-            "timestampInMilliseconds": 0
+            "timestampInMs": 0
         }
     ]
 }
