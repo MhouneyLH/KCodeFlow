@@ -21,7 +21,7 @@ export class WordsPerMinuteStatusBar {
     this._statusBarItem.text = `${wpm.toFixed(DIGIT_PRECISION)} wpm`;
   }
 
-  dispose() {
+  dispose(): void {
     this._statusBarItem.dispose();
   }
 }

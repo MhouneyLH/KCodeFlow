@@ -20,7 +20,7 @@ export class KeystrokCountStatusBar {
     this._statusBarItem.text = `${KEYBOARD_ICON} ${totalCount}`;
   }
 
-  dispose() {
+  dispose(): void {
     this._statusBarItem.dispose();
   }
 }

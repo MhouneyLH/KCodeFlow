@@ -54,7 +54,7 @@ export class WordsPerMinuteCalculator {
     return elapsedTimeInMs;
   }
 
-  private getTimeBetweenInMs(earlierTimeInMs: number, laterTimeInMs: number) {
+  private getTimeBetweenInMs(earlierTimeInMs: number, laterTimeInMs: number): number {
     const timeBetweenInMs: number = Math.abs(laterTimeInMs - earlierTimeInMs);
     return timeBetweenInMs;
   }
