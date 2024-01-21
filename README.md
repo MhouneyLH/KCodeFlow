@@ -27,13 +27,12 @@ The project is a VSCode extension, that tracks your keystrokes, while coding. Do
 ### 📊 Keep track of your total keystrokes and wpm
 
 ![](./assets/img/showcase_wpm_and_live_count.gif)
-![](./docs/keystrokes_and_wpm.gif)
 
 ### 📊 Show analytics
 
-![](./assets/img/showcase_count_analytics.gif.gif)
+![](./assets/img/showcase_count_analytics.gif)
 
-![](./assets/img/showcase_most_often_pressed_keys.gif.gif)
+![](./assets/img/showcase_most_often_pressed_keys.gif)
 
 <p align="right">(<a href="#readme_top">back to top</a>)</p>
 

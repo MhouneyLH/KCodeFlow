@@ -1,6 +1,10 @@
 # Change Log
 
-## [1.0.0] - 21.01.2024
+## [1.0.1] - 21.01.2024
+
+- fix readme because of wrong paths for showcases
+
+## 🥳 [1.0.0] - 21.01.2024
 
 - Initial release
 - Following features:
